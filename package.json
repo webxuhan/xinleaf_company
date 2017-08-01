@@ -5,7 +5,7 @@
   "author": "webxuhan <xuha_715@163.com>",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --port 0715 --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "start": "node server/bin/www",
     "lint" : "eslint --ext .js,.vue .",
