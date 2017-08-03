@@ -1,13 +1,20 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <nv-head></nv-head>
     <router-view></router-view>
+    <nv-foot></nv-foot>
   </div>
 </template>
 
 <script>
+import nvHead from './components/head'
+import nvFoot from './components/foot'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    nvHead,
+    nvFoot
+  }
 }
 </script>
 
