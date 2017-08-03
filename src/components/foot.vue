@@ -15,6 +15,7 @@
 
 #foot{
 	background:#000;
+	border-top: 4px solid #a99fa0;
 }	
 #foot .foot-wrap{
 	width:960px;
