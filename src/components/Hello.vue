@@ -1,39 +1,56 @@
 <template>
-  <el-row class="block-col-2">
-  <el-col :span="12">
-    <span class="demonstration">hover 激活</span>
-    <el-dropdown>
-      <span class="el-dropdown-link">
-        下拉菜单<i class="el-icon-caret-bottom el-icon--right"></i>
-      </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>黄金糕</el-dropdown-item>
-        <el-dropdown-item>狮子头</el-dropdown-item>
-        <el-dropdown-item>螺蛳粉</el-dropdown-item>
-        <el-dropdown-item>双皮奶</el-dropdown-item>
-        <el-dropdown-item>蚵仔煎</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-  </el-col>
-  <el-col :span="12">
-    <span class="demonstration">click 激活</span>
-    <el-dropdown trigger="click">
-      <span class="el-dropdown-link">
-        下拉菜单<i class="el-icon-caret-bottom el-icon--right"></i>
-      </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>黄金糕</el-dropdown-item>
-        <el-dropdown-item>狮子头</el-dropdown-item>
-        <el-dropdown-item>螺蛳粉</el-dropdown-item>
-        <el-dropdown-item>双皮奶</el-dropdown-item>
-        <el-dropdown-item>蚵仔煎</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-  </el-col>
-</el-row>
+<div>
+  <el-row>
+    <el-col :span="24">
+      <!-- <div class="grid-content bg-purple-dark">
+        <el-carousel indicator-position="outside">
+          <el-carousel-item v-for="item in 5" :key="item">
+            <h3>{{ item }}</h3>
+          </el-carousel-item>
+        </el-carousel>
+      </div> -->
+    </el-col>
+  </el-row>
+  <el-row>
+    <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
+    <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+  </el-row>
+  <el-row>
+    <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
+    <el-col :span="8"><div class="grid-content bg-purple-light"></div></el-col>
+    <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
+  </el-row>
+</div>
 </template>
 
 <style>
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
+
   .el-carousel__item h3 {
     color: #475669;
     font-size: 18px;

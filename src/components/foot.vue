@@ -18,8 +18,6 @@
 	border-top: 4px solid #a99fa0;
 }	
 #foot .foot-wrap{
-	width:960px;
-	margin:0 auto;
 	color:#656565;
 	padding:10px 0;
 }
