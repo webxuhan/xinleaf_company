@@ -17,6 +17,9 @@ const AdminUserSchema = new Schema({
 	name : String,
 	userName : String,
 	password : String,
+	phone : Number,
+	email : String,
+	register_time : { type: Date,default: Date.now},
 	group : {
 		type : String,
 		ref : 'AdminGroup'

@@ -3,7 +3,7 @@
 	密码
 	手机号
 	email
-	注册时间
+	注册时间 (register_time)
 
 2.产品分类表
 	分类id(cat_id)
