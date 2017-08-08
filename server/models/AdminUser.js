@@ -1,5 +1,5 @@
 /**
- * 管理员对象
+ * 管理员用户对象
 **/
 
 const mongoose = require("mongoose");
