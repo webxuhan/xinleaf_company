@@ -4,6 +4,8 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//数据库连接
+var Dbopt = require('./models/Dbopt');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -22,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use('/', index); 	//前台api接口
 app.use('/users', users);
 
 // catch 404 and forward to error handler

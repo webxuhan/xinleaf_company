@@ -16,8 +16,9 @@ const CategorySchema = new Schema({
 	parent_id : { type : String, defualt : '0' }, 	//父id,默认为0，0为最高级
 	is_show : { type : Boolean, defualt : false }, 	//是否显示,默认不显示
 	sort_order : { type: String, default: "0" } 	//分类排序,默认为0,0为升序，1为降序
+	
 });
 
-var Category = mongoose.model("Category",CategorySchema);
+const Category = mongoose.model("Category",CategorySchema);
 
 module.exports = Category;

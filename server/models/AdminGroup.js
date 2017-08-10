@@ -18,4 +18,4 @@ const AdminGroupSchema = new Schema({
 
 const AdminGroup = mongoose.model('AdminGroup',AdminGroupSchema);
 
-smodule.exports = AdminGroup;
+module.exports = AdminGroup;

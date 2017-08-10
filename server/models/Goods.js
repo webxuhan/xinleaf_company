@@ -22,7 +22,7 @@ const GoodsSchema = new Schema({
 	goods_img : { type: String, default: "/upload/images/defaultlogo.png" },	//商品图片
 	add_time : { type: Date, default: Date.now },	//添加时间
 	sort_order : { type: String, default: "0" },		//商品排序，0为升序,1为降序
-	last_time : { type: Date, default Date.now },	//最新更新时间
+	last_time : { type: Date, default : Date.now },	//最新更新时间
 	suppliers_id : {
 		type : String,
 		ref : 'AdminUser'
