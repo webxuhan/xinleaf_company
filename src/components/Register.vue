@@ -29,7 +29,10 @@ data() {
 },
 methods: {
   register() {
-    console.log(this.form.name);
+
+    this.$http.post('http://study.jameschun.cc/data.php').then(function(res){
+    	console.log(res);
+    });
   }
 }
 }
