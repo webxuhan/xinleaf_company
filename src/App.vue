@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <nv-head></nv-head>
-    <router-view></router-view>
+    <div class="wrap">
+      <router-view></router-view>
+    </div>
     <nv-foot></nv-foot>
   </div>
 </template>
@@ -30,5 +32,8 @@ body{
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.wrap{
+  margin:10px auto;
 }
 </style>
