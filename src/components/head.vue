@@ -1,16 +1,19 @@
 <template>
 <div id="head">
-	<el-row>
-		<el-col :span="12">
-			<div class="logo"></div>
+	<el-row class="head-wrap">
+		<el-col :span="8">
+			<div class="logo">1</div>
 		</el-col>
-		<el-col :span="12">
-			<div class="phone">
+		<el-col :span="8">
+			<!-- <div class="phone">
 				<div class="p-top"></div>
 				<div class="p-bottom">
 					<el-input placeholder="请输入内容" icon="search" v-model="search" :on-icon-click="handleIconClick"></el-input>
 				</div>
-			</div>
+			</div> -->
+		</el-col>
+		<el-col :span="8">
+			<router-link to="Register">注册</router-link>
 		</el-col>
 	</el-row>
 </div>	
@@ -25,10 +28,15 @@ export default {
   methods: {
     handleIconClick(ev) {
       console.log(this.search);
+    },
+    handleSelect(key,keyPath){
+    	console.log(key,keyPath);
     }
   }
 }
 </script>
 <style>
-	
+	.head-wrap{
+		margin-bottom: 10px;
+	}
 </style>
