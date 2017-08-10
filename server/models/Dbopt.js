@@ -32,7 +32,7 @@ const DbOpt = {
 		obj.find({}, function (err,result) {
 			if ( err ) {
 				res.next(err);
-			}
+			} 
 		})
 	}
 }
