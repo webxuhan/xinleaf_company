@@ -9,11 +9,8 @@
 			  <el-form-item label="用户密码：">
 			    <el-input type="password" v-model="form.password" placeholder="请输入用户密码"></el-input>
 			  </el-form-item>
-			  <el-form-item label="重复密码：">
-			    <el-input type="password" v-model="form.repassword" placeholder="请重复输入密码"></el-input>
-			  </el-form-item>
 			  <el-form-item>
-			    <el-button type="primary" @click="register">立即注册</el-button>
+			    <el-button type="primary" @click="register">立即登录</el-button>
 			  </el-form-item>
 			</el-form>
 		</el-col>
@@ -26,8 +23,7 @@ data() {
   return {
     form: {
       name: '',
-      password: '',
-      repassword: ''
+      password: ''
     }
   }
 },

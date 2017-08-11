@@ -14,6 +14,7 @@
 		</el-col>
 		<el-col :span="8">
 			<router-link to="Register">注册</router-link>
+			<router-link to="Login">登录</router-link>
 		</el-col>
 	</el-row>
 </div>	
