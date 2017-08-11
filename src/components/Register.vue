@@ -23,6 +23,25 @@
 <script>
 export default {
 data() {
+	var validatePass = (rule, value, callback) => {
+	    if (value === '') {
+	      callback(new Error('请输入密码'));
+	    } else {
+	      if (this.form.repassword !== '') {
+	        this.$refs.form.validateField('repassword');
+	      }
+	      callback();
+	    }
+	  };
+	var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.form.password) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
   return {
     form: {
       name: '',
@@ -35,12 +54,10 @@ data() {
 			{min: 3,max: 10, message: '长度在3到10个字符', trigger: 'blur'}
 		],
 		password: [
-			{required: true, message: '请输入密码', trigger: 'blur'},
-			{min: 6,max: 20, message: '长度在6到20个字符', trigger: 'blur'}
+			{validator: validatePass, trigger: 'blur'}
 		],
 		repassword: [
-			{required: true, message: '请重复输入密码', trigger: 'blur'},
-			{min: 6,max: 20, message: '长度在6到20个字符', trigger: 'blur'}
+			{validator: validatePass2, trigger: 'blur'}
 		]
 	}
   }
@@ -57,7 +74,7 @@ methods: {
 		    		console.log('error');
 		    	}
 		    });
-  			
+
   		}else{
   			console.log('error');
   			return false;
