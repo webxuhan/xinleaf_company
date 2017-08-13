@@ -1,0 +1,23 @@
+1.分类相关：category
+分类列表：/category/list
+添加分类：/category/add  (insert)
+编辑分类：/category/edit (update)
+编辑排序序号：/category/edit_sort_order
+删除分类:/category/remove
+
+2.商品相关：goods
+商品列表：/goods/list
+添加商品：/goods/add (insert)
+编辑商品：/goods/edit (update)
+删除商品：/goods/remove
+
+
+3.登录注册
+	注册
+	http://localhost:1225/doReg
+	{
+		name
+		password
+		poneNum
+	}
+

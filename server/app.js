@@ -4,6 +4,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors'); 	//引入cors包
 //数据库连接
 var Dbopt = require('./models/Dbopt');
 
@@ -11,6 +12,14 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+//配置cors
+app.use(cors({
+	origin : ['http://localhost:461'], 	//允许这个域的访问
+	methods : ['GET','POST'], 	//只允许get和post请求
+	alloweHeaders : ['Conten-Type','Authorization'] 	//只允许这两种请求头的链接访问
+}))
+
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -22,7 +31,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', index); 	//前台api接口
 app.use('/users', users);

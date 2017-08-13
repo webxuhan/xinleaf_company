@@ -1,0 +1,26 @@
+1.用户表
+	用户名
+	密码
+	手机号
+	email
+	注册时间 (register_time)
+
+2.产品分类表
+	分类id(cat_id)
+	分类名
+	父id(parent_id  0)
+	是否显示(is_show)
+	排序(sort_order)
+
+3.商品表（goods）
+	商品id   (goods_id)
+	分类id  (cat_id)
+	商品名	(goods_name)
+	点击次数	(click_count)
+	商品描述  (goods_brief)
+	商品详情	(goods_desc)
+	商品图	(goods_img)
+	添加时间	(add_time)
+	商品排序	(sort_order)
+	最新更新时间	(last_update)
+	发表人	(suppliers_id)-->指向用户表用户

@@ -12,7 +12,7 @@ const AdminGroup = require('./AdminGroup');
 const AdminUser = require('./AdminUser');
 const Category = require('../models/Category');
 const Goods = require('../models/Goods');
-
+const User = require('../models/USer');
 
 //站点配置
 const settings = require('../models/db/settings');
