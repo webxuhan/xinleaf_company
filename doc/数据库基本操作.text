@@ -1,8 +1,0 @@
-1. 在 mongodb\bin 目录下创建一个xinleaf_company.conf文件,文件内容为:
-	dbpath=D:\MongoDB\xinleaf_company
-
-2. 在 mongodb\bin 目录下打开命令行，输入 mongod --config xinleaf_company.conf
-
-3. 在 mongodb\bin 目录下打开另一个命令行，输入 mongo
-
-4. 在项目目录下打开命令行，输入 npm run start
