@@ -5,6 +5,9 @@
  */
 
  module.exports = {
+ // debug 为 true 时，用于本地调试
+    debug: false,
+ 	encrypt_key : 'xinleaf',
  	
  //	数据库配置
  	URL : 'mongodb://127.0.0.1:27017/xinleaf_company',
