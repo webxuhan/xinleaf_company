@@ -27,12 +27,60 @@ const DbOpt = {
 	del : function( ) {
 
 	},
-	//查找指定对象所有记录
-	findAll : function( obj,req,res,logMsg ) {
+	findAll : function( obj,req,res,logMsg ) { 	//查找指定对象所有记录
 		obj.find({}, function (err,result) {
 			if ( err ) {
 				res.next(err);
-			} 
+			} else {
+				console.log(logMsg+' success!');
+				return res.json(result);
+			}
 		})
+	},
+	findOne : function( obj,req,res,logMsg) { 	//根据ID查找单条记录
+		const params = url.parse(req.url,true);
+		const targetId = params.query.uid; 
+		if( shortid.isValid(targetId) ) {
+			obj.findOne({_id : targetId}, function (err,result) {
+				if( err) {
+					res.next(err);
+				} else {
+					console.log(logMsg+' success');
+					return res.json(result);
+				}
+			})
+		} else {
+			res.json(settings.system_illegal_param);
+		}
+	},
+	updateByID : function( obj,req,res,logMsg ) {
+		const params = url.parse(req.url,true);
+		const targetId = params.query.uid;
+
+		if( shortid.isValid(targetId) ) {
+			const conditions = {_id : targetId};
+			req.body.updateDate = new Date();
+			const update = {$set : req.body};
+			obj.update(conditions, update, function(err,result) {
+				if( err ) {
+					res.json(err);
+				} else {
+					console.log(logMsg+' success!');
+					res.json('success');
+				}
+			})
+		} else {
+			res.end(settings.system_illegal_param);
+		}
+	},
+	addOne : function( obj,req,res ) {  //单个添加
+		const newObj = new obj(req.body);
+		newObj.save(function( err ) {
+			if( err ) {
+				res.json(err);
+			} else {
+				res.json('success');
+			}
+		});
 	}
 }

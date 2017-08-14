@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors'); 	//引入cors包
+var ejs = require('ejs');
 //数据库连接
 var Dbopt = require('./models/Dbopt');
 
@@ -15,15 +16,15 @@ var app = express();
 
 //配置cors
 app.use(cors({
-	origin : ['http://localhost:461'], 	//允许这个域的访问
+	origin : ['http://localhost:715'], 	//允许这个域的访问
 	methods : ['GET','POST'], 	//只允许get和post请求
 	alloweHeaders : ['Conten-Type','Authorization'] 	//只允许这两种请求头的链接访问
 }))
 
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+app.engine('html',ejs.__express);
+app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

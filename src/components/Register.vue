@@ -6,6 +6,9 @@
 			  <el-form-item label="用户姓名：" prop="name">
 			    <el-input v-model="form.name" placeholder="请输入用户姓名"></el-input>
 			  </el-form-item>
+			  <el-form-item label="手机号码：" prop="phoneNum">
+			    <el-input v-model="form.phoneNum" placeholder="请输入手机号码"></el-input>
+			  </el-form-item>
 			  <el-form-item label="用户密码：" prop="password">
 			    <el-input type="password" v-model="form.password" auto-complete="off" placeholder="请输入用户密码"></el-input>
 			  </el-form-item>
@@ -45,6 +48,7 @@ data() {
   return {
     form: {
       name: '',
+      phoneNum: '',
       password: '',
       repassword: ''
     },
