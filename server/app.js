@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors'); 	//引入cors包
-var ejs = require('ejs');
+// var ejs = require('ejs');
 //数据库连接
 var Dbopt = require('./models/Dbopt');
 
@@ -23,8 +23,8 @@ app.use(cors({
 
 
 // view engine setup
-app.engine('html',ejs.__express);
-app.set('view engine', 'html');
+// app.engine('html',ejs.__express);
+// app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -33,7 +33,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+//解决异步层次混乱问题
+app.use(require('express-promise')());
 
 app.use('/', index); 	//前台api接口
 app.use('/users', users);
@@ -47,13 +48,14 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+	console.log(err);
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json('error');
 });
 
 module.exports = app;

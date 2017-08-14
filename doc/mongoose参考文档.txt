@@ -1,0 +1,111 @@
+参考网址:http://www.cnblogs.com/jayruan/p/5123754.html
+1> 创建schemas
+	var userSchema = new mongoose.Schema({
+		name:String,
+		age : String
+	});
+
+	schema中的数据类型:
+	String
+	Number
+	Date
+	Boolean
+	Buffer
+	ObjectId
+	Mixed
+	Array
+
+	//ObjectId就类似于唯一键值
+	projectSchema.add({
+	    owner: mongoose.Schema.Types.ObjectId
+	});
+	//混合类型，顾名思义，就是说里面可以放置任意类型的数据，有两种方式创建该类型数据
+	//方式一：直接赋予一个空的字面量对象
+	vardjSchema= new mongoose.Schema({
+	    mixedUp: {}
+	});
+	//方式二：根据Schemas.Types中值来赋予
+	vardjSchema= new mongoose.Schema({
+	    mixedUp: Schema.Types.Mixed
+	});
+	//Array类型数据有两种创建方式，一种是简单数组创建：
+	var userSchema = new mongoose.Schema({
+	    name: String,
+	    emailAddresses: [String]
+	});
+	//第二种方式就是复杂类型数据数组，例如我们可以再数组中添加不同类型的schemas:
+	var emailSchema = new mongoose.Schema({
+	    email: String,
+	    verified: Boolean
+	});
+	var userSchema = new mongoose.Schema({
+	    name: String,
+	    emailAddresses: [emailSchema]
+	});
+	//注意：如果定义一个空的数据的话，则会创建为一个混合类型数据的数组：
+	var emailSchema = new mongoose.Schema({
+	    email: String,
+	    verified: Boolean
+	});
+	var userSchema = new mongoose.Schema({
+	    name: String,
+	    emailAddresses: [emailSchema]
+	});
+
+2> 创建静态方法
+	静态方法将来会用在Model中，创建该静态方法需要在创建完成schema之后，在Model编译之前
+	projectSchema.statics.findByUserID = function (userid, callback) {
+		this.find({ createdBy: userid }, '_id projectName', {sort: 'modifiedOn'}, callback);
+	};
+	Model.findByUserID(userid,callback);
+	该静态方法会返回一个JSON格式的数据，这在我们使用AJAX技术来加载网页数据的时候会比较方便
+
+	//路由规则：app.get('/project/byuser/:userid', project.byUser);
+				exports.byUser = function (req, res) {
+				    console.log("Getting user projects");
+				    if (req.params.userid){
+				        Project.findByUserID(req.params.userid,function (err, projects) {
+				            if(!err){
+				                console.log(projects);
+				                res.json(projects);
+				            }else{
+				                console.log(err);
+				                res.json({"status":"error", "error":"Error finding projects"});
+				            }
+				        });
+				    }else{
+				        console.log("No user id supplied");
+				        res.json({"status":"error", "error":"No user id supplied"});
+				    }
+				};
+
+3> 创建model
+	Mongoose.Model('User',userSchema);
+	参数一为Model的名字，参数二为生成Model所需要的schema
+	
+	var adminConnection = mongoose.createConnection(dbURI);
+	adminConnection.model( 'User', userSchema );
+
+	1.方式一[在创建schema的时候定义collection的名字]
+		var userSchema = new mongoose.Schema({
+		    name: String,
+		    email: {type: String, unique:true}
+		},
+		{
+		    collection: 'myuserlist'
+		});
+	2.方式二[在创建model的时候定义collection的名字]
+		mongoose.model( 'User', userSchema, 'myuserlist' );
+4> mongoose连接数据库	
+	1.方式一
+		var dbURL = 'mongodb://localhost/xinleaf_company';
+		mongoose.connect(dbURL);
+	2.方式二
+		var dbURL = 'mongodb://localhost/xinleaf_company';
+		var adminConnection = mongoose.createConnection(dbURL);
+	3.如果需要定义用户名和密码
+		var dbURL = 'mongodb://username:password@localhost/xinleaf_company';
+	4.传一个对象类型的参数
+		var dbURL = 'mongodb://localhost/mydatabase';
+		var dbOptions = {'user':'db_usernamess','pass':'db_password'};
+		mongoose.connect(dbURL,dbOptions);

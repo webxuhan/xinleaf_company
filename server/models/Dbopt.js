@@ -12,7 +12,7 @@ const AdminGroup = require('./AdminGroup');
 const AdminUser = require('./AdminUser');
 const Category = require('../models/Category');
 const Goods = require('../models/Goods');
-const User = require('../models/USer');
+const User = require('../models/User');
 
 //站点配置
 const settings = require('../models/db/settings');
@@ -75,12 +75,17 @@ const DbOpt = {
 	},
 	addOne : function( obj,req,res ) {  //单个添加
 		const newObj = new obj(req.body);
+		console.log(newObj);
 		newObj.save(function( err ) {
 			if( err ) {
 				res.json(err);
+				console.log(01);
 			} else {
 				res.json('success');
+				console.log(02);
 			}
 		});
 	}
 }
+
+module.exports = DbOpt;
