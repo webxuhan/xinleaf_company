@@ -1,5 +1,6 @@
 <template>
 <div>
+	<nv-head></nv-head>
 	<el-row class="reg-wrap">
 		<el-col :span="12" :offset="6">
 			<el-form :model="form" :rules="rules" ref="form" label-width="100px" class="demo-ruleForm">
@@ -15,9 +16,12 @@
 			</el-form>
 		</el-col>
 	</el-row>
+	<nv-foot></nv-foot>
 </div>
 </template>
 <script>
+import nvHead from '../components/head'
+import nvFoot from '../components/foot'
 export default {
 	data() {
 	  return {
@@ -56,7 +60,11 @@ export default {
 	  		}
 	  	}); 
 	  }	
-	}
+	},
+	components: {
+    	nvHead,
+    	nvFoot
+  	}
 }
 </script>
 <style>
