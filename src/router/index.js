@@ -1,17 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
-import Register from '@/components/Register'
-import Login from '@/components/Login'
 
 Vue.use(Router)
+
+const Home = r => require.ensure([], () => r(require('@/views/Home')), 'Home');
+const Register = r => require.ensure([], () => r(require('@/views/Register')), 'Register');
+const Login = r => require.ensure([], () => r(require('@/views/Login')), 'Login');
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'Home',
+      component: Home
     },
     {
       path: '/register',
@@ -25,7 +26,7 @@ export default new Router({
     },
     {
       path: '*',
-      component: Hello
+      component: Home
     }
   ]
 })
