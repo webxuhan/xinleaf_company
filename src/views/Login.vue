@@ -67,7 +67,8 @@ export default {
   	}
 }
 </script>
-<style>
+<style lang="less" scoped>
+@import '../style/mixin';
 .reg-wrap{
 	padding:10px 0;
 }
