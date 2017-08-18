@@ -46,12 +46,11 @@ export default {
 	  	this.$refs[formName].validate((valid) => {
 	  		if(valid){
 	  			
-	  			this.$http.post('http://study.jameschun.cc/data.php',this.form).then(function(res){
-			    	if(res){
-			    		console.log(res.data);
-			    	}else{
-			    		console.log('error');
-			    	}
+	  			this.$http.post('http://study.jameschun.cc/data.php',this.form).then((res) => {
+			    	console.log(res.data);
+			    })
+			    .catch((error) => {
+			    	console.log(error);
 			    });
 
 	  		}else{

@@ -4,8 +4,8 @@ import Vue from 'vue'
 // import App from './App'
 import router from './router'
 
-import VueResource from 'vue-resource';
-Vue.use(VueResource);
+import axios from 'axios'
+Vue.prototype.$http = axios
 
 // 引入element-ui
 import ElementUI from 'element-ui'
