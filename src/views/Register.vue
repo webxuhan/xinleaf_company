@@ -75,12 +75,13 @@ methods: {
   	this.$refs[formName].validate((valid) => {
   		if(valid){
   			
-  			this.$http.post('http://localhost:1225/users/doReg',this.form).then(function(res){
+  			this.$http.post('http://localhost:1225/users/doReg',this.form).then((res) => {
 		    	if(res){
 		    		console.log(res.data);
-		    	}else{
-		    		console.log('error');
 		    	}
+		    })
+		    .catch((error) => {
+		    	console.log('error');
 		    });
 
   		}else{
