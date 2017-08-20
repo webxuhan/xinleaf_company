@@ -1,8 +1,8 @@
 <template>
 <div id="head">
 	<el-row class="head-wrap">
-		<el-col :span="8">
-			<div class="logo">1</div>
+		<el-col :span="16">
+			<div class="logo"><img src="../assets/logo.jpg"></div>
 		</el-col>
 		<el-col :span="8">
 			<!-- <div class="phone">
@@ -11,27 +11,38 @@
 					<el-input placeholder="请输入内容" icon="search" v-model="search" :on-icon-click="handleIconClick"></el-input>
 				</div>
 			</div> -->
-		</el-col>
-		<el-col :span="8">
+			<!-- <el-button type="primary" icon="search">登录</el-button>
+			<el-button type="primary" icon="search">注册</el-button> -->
 			<router-link to="Register">注册</router-link>
 			<router-link to="Login">登录</router-link>
 		</el-col>
 	</el-row>
 	<el-row>
-		<el-col :span="24">
-			<el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-			  <el-menu-item index="1"><router-link to="Home">Home</router-link></el-menu-item>
+		<el-col :span="24" class="nav-bg">
+			<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+			  <el-menu-item index="1"><router-link to="Home">首页</router-link></el-menu-item>
 			  <el-submenu index="2">
-			    <template slot="title">Products</template>
+			    <template slot="title">产品中心</template>
 			    <el-menu-item index="2-1">pressure gauge</el-menu-item>
 			    <el-menu-item index="2-2">tie guage</el-menu-item>
 			    <el-menu-item index="2-3">pressure gauge</el-menu-item>
 			  </el-submenu>
-			  <el-menu-item index="3"><router-link to="About">About us</router-link></el-menu-item>
-			  <el-menu-item index="3"><router-link to="About">Marketing</router-link></el-menu-item>
-			  <el-menu-item index="3"><router-link to="About">Consultation</router-link></el-menu-item>
-			  <el-menu-item index="3"><router-link to="About">Contact Us</router-link></el-menu-item>
+			  <el-menu-item index="3"><router-link to="About">关于我们</router-link></el-menu-item>
+			  <el-menu-item index="3"><router-link to="About">营销网络</router-link></el-menu-item>
+			  <el-menu-item index="3"><router-link to="About">在线留言</router-link></el-menu-item>
+			  <el-menu-item index="3"><router-link to="About">联系我们</router-link></el-menu-item>
 			</el-menu>
+		</el-col>
+	</el-row>
+	<el-row>
+		<el-col :span="24">
+			<div class="grid-content">
+		        <el-carousel indicator-position="outside">
+		          <el-carousel-item v-for="item in sliders" :key="item">
+		            <img :src="item">
+		          </el-carousel-item>
+		        </el-carousel>
+		      </div>
 		</el-col>
 	</el-row>
 </div>	
@@ -41,7 +52,12 @@ export default {
   data() {
     return {
       search: '',
-      activeIndex: '1'
+      activeIndex: '1',
+      sliders:[
+      	require('../assets/banner-home-1.jpg'),
+      	require('../assets/banner-home-2.jpg'),
+      	require('../assets/banner-home-3.jpg')
+      ]
     }
   },
   methods: {
@@ -54,8 +70,18 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="less" scoped>
+	@import '../style/mixin';
 	.head-wrap{
-		margin-bottom: 10px;
+		.wh(960px,102px);
+		margin: 0px auto;
+	}
+	.nav-bg{
+		background:rgb(133,133,133);
+		.el-menu-demo{
+			background:none; 
+			width:960px; 
+			margin:0 auto; 
+		}
 	}
 </style>
