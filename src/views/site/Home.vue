@@ -10,8 +10,8 @@
 </div>
 </template>
 <script>
-import nvHead from '../components/head'
-import nvFoot from '../components/foot'
+import nvHead from '../../components/head'
+import nvFoot from '../../components/foot'
 export default {
   components: {
     nvHead,
