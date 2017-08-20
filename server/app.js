@@ -1,18 +1,24 @@
-var express = require('express');
-var path = require('path');
-// var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cors = require('cors'); 	//引入cors包
-// var ejs = require('ejs');
+const express = require('express');
+const path = require('path');
+// const favicon = require('serve-favicon');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cors = require('cors'); 	//引入cors包
+// const ejs = require('ejs');
 //数据库连接
-var Dbopt = require('./models/Dbopt');
+const Dbopt = require('./models/Dbopt');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const filter = require('./util/filter');
+//站点配置
+const settings = require('./models/db/settings');
 
-var app = express();
+const index = require('./routes/index');
+const users = require('./routes/users');
+
+const app = express();
 
 //配置cors
 app.use(cors({
@@ -36,12 +42,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 //解决异步层次混乱问题
 app.use(require('express-promise')());
 
+
+app.use(session({
+  secret : settings.session_secret,
+  store : new RedisStore({
+    port : settings.redis_port,
+    host : settings.redis_host,
+    pass : settings.redis_psd,
+    ttl : 1800  //过期时间
+  }),
+  resave : true,
+  saveUninitialized : true
+}));
+
+app.use(filter.authUser);
+
 app.use('/', index); 	//前台api接口
 app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

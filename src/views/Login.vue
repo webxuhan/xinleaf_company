@@ -46,7 +46,7 @@ export default {
 	  	this.$refs[formName].validate((valid) => {
 	  		if(valid){
 	  			
-	  			this.$http.post('http://study.jameschun.cc/data.php',this.form).then((res) => {
+	  			this.$http.post('http://localhost:1225/users/doLogin',this.form).then((res) => {
 			    	console.log(res.data);
 			    })
 			    .catch((error) => {
