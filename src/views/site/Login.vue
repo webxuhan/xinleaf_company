@@ -20,8 +20,8 @@
 </div>
 </template>
 <script>
-import nvHead from '../components/head'
-import nvFoot from '../components/foot'
+import nvHead from '../../components/head'
+import nvFoot from '../../components/foot'
 export default {
 	data() {
 	  return {
@@ -67,7 +67,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../style/mixin';
+@import '../../style/mixin';
 .reg-wrap{
 	padding:10px 0;
 }

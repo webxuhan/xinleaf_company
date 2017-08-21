@@ -26,8 +26,8 @@
 </div>
 </template>
 <script>
-import nvHead from '../components/head'
-import nvFoot from '../components/foot'
+import nvHead from '../../components/head'
+import nvFoot from '../../components/foot'
 export default {
 data() {
 	var validatePass = (rule, value, callback) => {
