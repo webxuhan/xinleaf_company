@@ -6,7 +6,9 @@ Vue.use(Router)
 const Home = r => require.ensure([], () => r(require('@/views/site/Home')), 'Home');
 const Register = r => require.ensure([], () => r(require('@/views/site/Register')), 'Register');
 const Login = r => require.ensure([], () => r(require('@/views/site/Login')), 'Login');
-const Admin = r => require.ensure([], () => r(require('@/views/admin/Login')), 'Admin');
+
+const Admin = r => require.ensure([], () => r(require('@/views/admin/admin')), 'Admin');
+const home = r => require.ensure([], () => r(require('@/views/admin/home')), 'home');
 
 export default new Router({
   routes: [
@@ -27,12 +29,13 @@ export default new Router({
     },
     {
       path: '/admin',
-      name: 'Admin',
-      component: Admin
-    },
-    {
-      path: '*',
-      component: Home
+      name: '',
+      component: Admin,
+      children: [{
+        path: '',
+        component: home,
+        meta: []
+      }]
     }
   ]
 })
