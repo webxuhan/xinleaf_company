@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<head-top></head-top>
-		addCategory.vue
+		addGood.vue
 	</div>
 </template>
 <script>

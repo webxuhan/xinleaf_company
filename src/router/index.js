@@ -8,9 +8,12 @@ const Register = r => require.ensure([], () => r(require('@/views/site/Register'
 const Login = r => require.ensure([], () => r(require('@/views/site/Login')), 'Login');
 
 const manage = r => require.ensure([], () => r(require('@/views/admin/manage')), 'manage');
+const adminLogin = r => require.ensure([], () => r(require('@/views/admin/adminLogin')), 'adminLogin');
 const home = r => require.ensure([], () => r(require('@/views/admin/home')), 'home');
 const categoryList = r => require.ensure([], () => r(require('@/views/admin/categoryList')), 'categoryList');
 const addCategory = r => require.ensure([], () => r(require('@/views/admin/addCategory')), 'addCategory');
+const goodsList = r => require.ensure([], () => r(require('@/views/admin/goodsList')), 'goodsList');
+const addGood = r => require.ensure([], () => r(require('@/views/admin/addGood')), 'addGood');
 
 export default new Router({
   routes: [
@@ -30,12 +33,17 @@ export default new Router({
       component: Login
     },
     {
+      path: '/adminLogin',
+      component: adminLogin,
+      meta: []
+    },
+    {
       path: '/manage',
       name: 'manage',
       component: manage,
       children: [
       {
-        path: 'home',
+        path: '',
         component: home,
         meta: []
       },
@@ -48,6 +56,16 @@ export default new Router({
         path: 'addCategory',
         component: addCategory,
         meta: ['分类管理','添加分类']
+      },
+      {
+        path: 'goodsList',
+        component: goodsList,
+        meta: ['商品管理','商品列表']
+      },
+      {
+        path: 'addGood',
+        component: addGood,
+        meta: ['商品管理','添加商品']
       }
       ]
     }
