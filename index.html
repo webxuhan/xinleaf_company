@@ -5,7 +5,7 @@
     <title>xinleaf_company</title>
   </head>
   <body>
-    <div id="app">
+    <div id="app" class="fill_container">
     	<div class="wrap">
     		<router-view></router-view>
     	</div>
@@ -14,11 +14,8 @@
   </body>
 </html>
 <style>
-body{
-  margin:0;
-  padding:0;
-}
-.wrap{
-  margin:10px auto;
-}
+  html,body{width:100%;height: 100%;}
+  body{margin:0; padding:0;}
+  .fill_container,.wrap{height: 100%;}
+
 </style>

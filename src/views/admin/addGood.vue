@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<head-top></head-top>
-		home.vue
+		addGood.vue
 	</div>
 </template>
 <script>
@@ -12,6 +12,3 @@
 		}
 	}
 </script>
-<style>
-	
-</style>
