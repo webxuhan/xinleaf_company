@@ -56,17 +56,17 @@ app.use(session({
   saveUninitialized : true
 }));
 
-app.use(filter.authUser);
+// app.use(filter.authUser);
 
-app.use((req, res, next) => {
-  //针对前台会员
-  res.locals.logined = req.session.logined;
-  res.locals.userInfo = req.session.user;
-  //针对管理员
-  res.locals.adminlogined = req.session.adminlogined;
-});
+// app.use((req, res, next) => {
+//   //针对前台会员
+//   res.locals.logined = req.session.logined;
+//   res.locals.userInfo = req.session.user;
+//   //针对管理员
+//   res.locals.adminlogined = req.session.adminlogined;
+// });
 
-//事件监听
+// 事件监听
 // app.io = io;
 // io.on('connection',(socket) =>{
 //   console.log('socket:',socket);
