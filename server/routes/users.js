@@ -39,16 +39,16 @@ const User = require('../models/User');
 			errors = '用户名3-10个字符';
 		}
 		if( errors ) {
-			res.json(errors);
+			res.json({success:false,error:true,'msg':errors});
 		} else {
 			User.findOne({name:name,password:password},function(err,user){
 				if( user ) {
 					//将cookie存入缓存
 					filter.gen_session(user,res);
-					res.json('success');
+					res.json({success:true,error:false,msg:'登录成功'});
 					console.log('登录的用户:',user);
 				} else {
-					res.json('用户名或密码错误！');
+					res.json({success:false,error:true,msg:'用户名或密码错误'});
 					console.log(err);
 				}
 			})
@@ -63,15 +63,16 @@ const User = require('../models/User');
 		const password = req.body.password;
 		const phoneNum = req.body.phoneNum;
 		if( errors ) {
-			res.json(errors);
+			res.json({success:false,error:true,msg:'注册失败'});
 		} else {
 			const query = User.find({name : name});
 			query.exec(function(err,user){
 				if( user.length > 0 ) {
 					errors = '用户名已存在！';
-					res.json(errors);
+					res.json({success:false,error:true,msg:errors});
 				} else {
 					Dbopt.addOne(User,req, res);
+					res.json({success:true,error:false,msg:'注册成功'});
 					console.log('添加成功');
 				}
 			})
