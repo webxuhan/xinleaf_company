@@ -7,6 +7,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors'); 	//引入cors包
+const io = require('socket.io')();
 // const ejs = require('ejs');
 //数据库连接
 const Dbopt = require('./models/Dbopt');
@@ -22,7 +23,7 @@ const app = express();
 
 //配置cors
 app.use(cors({
-	origin : ['http://localhost:715'], 	//允许这个域的访问
+	origin : ['http://localhost:8085'], 	//允许这个域的访问
 	methods : ['GET','POST'], 	//只允许get和post请求
 	alloweHeaders : ['Conten-Type','Authorization'] 	//只允许这两种请求头的链接访问
 }))
@@ -37,7 +38,7 @@ app.use(cors({
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(settings.session_secret));
 app.use(express.static(path.join(__dirname, 'public')));
 //解决异步层次混乱问题
 app.use(require('express-promise')());
@@ -56,6 +57,24 @@ app.use(session({
 }));
 
 app.use(filter.authUser);
+
+app.use((req, res, next) => {
+  //针对前台会员
+  res.locals.logined = req.session.logined;
+  res.locals.userInfo = req.session.user;
+  //针对管理员
+  res.locals.adminlogined = req.session.adminlogined;
+});
+
+//事件监听
+// app.io = io;
+// io.on('connection',(socket) =>{
+//   console.log('socket:',socket);
+//   socket.emit('news', { hello: 'world' });
+//   socket.on('my other event', function (data) {
+//      console.log(data);
+//   });
+// });
 
 app.use('/', index); 	//前台api接口
 app.use('/users', users);

@@ -19,13 +19,15 @@ const User = require('../models/User');
 //   res.json('respond with a resource');
 // });
 
-const returnUserRouter = (io) =>{
+// const returnUserRouter = (io) =>{
 // 	检查是否登录
 	function isLogined(req){
 		return req.session.logined;
 	}
+	console.log('进入user接口');
 //	用户登录提交请求
 	router.post('/doLogin',function(req,res,next){
+		console.log('登录');
 		const name = req.body.name;
 		const password = req.body.password;
 		let errors;
@@ -39,10 +41,10 @@ const returnUserRouter = (io) =>{
 		if( errors ) {
 			res.json(errors);
 		} else {
-			console.log(name,password);
-			// console.log(User.findOne({name:name,password:password}));
 			User.findOne({name:name,password:password},function(err,user){
 				if( user ) {
+					//将cookie存入缓存
+					filter.gen_session(user,res);
 					res.json('success');
 					console.log('登录的用户:',user);
 				} else {
@@ -55,6 +57,7 @@ const returnUserRouter = (io) =>{
 
 //	用户注册
 	router.post('/doReg',function(req,res,next){
+		console.log('注册');
 		let errors;
 		const name = req.body.name;
 		const password = req.body.password;
@@ -75,7 +78,9 @@ const returnUserRouter = (io) =>{
 		}
 
 	});
-}
+
+// 	return router;
+// }
 
 
 //自定义校验扩展
