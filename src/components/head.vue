@@ -13,8 +13,16 @@
 			</div> -->
 			<!-- <el-button type="primary" icon="search">登录</el-button>
 			<el-button type="primary" icon="search">注册</el-button> -->
-			<router-link to="Register">注册</router-link>
-			<router-link to="Login">登录</router-link>
+			<div v-if="userInfo.isLogin">
+				<span>{{userInfo.isLogin}}</span>
+				<span @click="logout">退出</span>
+			</div>
+			<div v-if="!userInfo.isLogin">
+				<router-link to="Register">注册</router-link>
+				<router-link to="Login">登录</router-link>
+			</div>
+			
+			
 		</el-col>
 	</el-row>
 	<el-row>
@@ -48,6 +56,8 @@
 </div>	
 </template>
 <script>
+import {mapActions, mapState} from 'vuex'
+
 export default {
   data() {
     return {
@@ -60,7 +70,11 @@ export default {
       ]
     }
   },
+  computed: {
+	...mapState(['userInfo'])
+  },
   methods: {
+  	...mapActions(['logout']),
     handleIconClick(ev) {
       console.log(this.search);
     },

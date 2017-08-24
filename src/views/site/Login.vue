@@ -22,6 +22,8 @@
 <script>
 import nvHead from '../../components/head'
 import nvFoot from '../../components/foot'
+import {mapActions, mapState} from 'vuex'
+
 export default {
 	data() {
 	  return {
@@ -53,6 +55,7 @@ export default {
 			    			type: 'success',
 			    			message: '登录成功'
 			    		});
+			    		this.$store.dispatch('setLogin');
 			    		this.$router.push('Main');
 			    	}else{
 			    		this.$message({
