@@ -58,7 +58,7 @@ const User = require('../models/User');
 //	用户注册
 	router.post('/doReg',function(req,res,next){
 		console.log('注册');
-		let errors;
+		var errors;
 		const name = req.body.name;
 		const password = req.body.password;
 		const phoneNum = req.body.phoneNum;
@@ -72,7 +72,7 @@ const User = require('../models/User');
 					res.json({success:false,error:true,msg:errors});
 				} else {
 					Dbopt.addOne(User,req, res);
-					res.json({success:true,error:false,msg:'注册成功'});
+					// res.json({success:true,error:false,msg:'注册成功'});
 					console.log('添加成功');
 				}
 			})

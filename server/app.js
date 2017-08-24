@@ -7,12 +7,12 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors'); 	//引入cors包
-const io = require('socket.io')();
+// const io = require('socket.io')();
 // const ejs = require('ejs');
 //数据库连接
 const Dbopt = require('./models/Dbopt');
 
-const filter = require('./util/filter');
+// const filter = require('./util/filter');
 //站点配置
 const settings = require('./models/db/settings');
 
@@ -95,7 +95,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.json('error');
+  // res.json('error');
 });
 
 module.exports = app;

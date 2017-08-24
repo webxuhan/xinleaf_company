@@ -9,8 +9,9 @@ const settings = require('../models/db/settings');
 //用户表
 const User = require('../models/User');
 
-const gen_session = (user, res) =>{
+function gen_session (user, res){
 	const auth_token = user._id + '$$$'; 	//将信息用$$$分开，便于查看
+	cosole.log('auth_token:',auth_token)
  	res.cookie(settings.auth_cookie_name, auth_token,
         {path: '/', maxAge: 1000 * 60 * 60 * 24 * 30, signed: true, httpOnly: true}); //cookie 有效期30天
 }
@@ -24,7 +25,7 @@ exports.authUser = (req, res, next) =>{
 		return next();
 	}
 
-	if ( req.session.user ) {
+	// if ( req.session.user ) {
 		
-	}
+	// }
 }

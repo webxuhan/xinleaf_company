@@ -85,7 +85,7 @@ methods: {
 		    });
 
   		}else{
-  			console.log('error');
+  			console.log('serror');
   			return false;
   		}
   	});

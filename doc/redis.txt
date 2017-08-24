@@ -1,1 +1,10 @@
-brew install redis 
+1. Mac安装:
+	brew install redis 
+
+2.常用命令
+	keys pattern; 显示键符合pattern的所有键
+	exists keyname; 判断键是否存在
+	del keyname; 删除键
+	expire keyname time; 为键设置过期时间
+	ttl keyname; 查看还有多长时间就过期；
+	type key; 查看key的数据类型；

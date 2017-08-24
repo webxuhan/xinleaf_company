@@ -78,10 +78,10 @@ const DbOpt = {
 		console.log(newObj);
 		newObj.save(function( err ) {
 			if( err ) {
-				res.json(err);
+				res.json({success:false,error:true,msg:err});
 				console.log(01);
 			} else {
-				res.json('success');
+				res.json({success:true,error:false,msg:'注册成功'});
 				console.log(02);
 			}
 		});
