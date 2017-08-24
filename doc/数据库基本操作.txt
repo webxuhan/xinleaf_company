@@ -6,3 +6,7 @@
 3. 在 mongodb\bin 目录下打开另一个命令行，输入 mongo
 
 4. 在项目目录下打开命令行，输入 npm run start
+
+
+5.添加后台超级管理员
+	db.adminusers.save({'userName':'admin','password':'admin123','rool':'0'}) 

@@ -14,12 +14,12 @@ const AdminUserSchema = new Schema({
 		unique : true,
 		'default' : shortid.generate
 	},
-	name : String,
-	userName : String,
-	password : String,
+	rool : {type : String,default: 1}, //角色，0为超级管理员【添加后台管理员】，1为普通管理员【增删改查】，2为后台游客【查】
+	userName : String, //后台用户名
+	password : String, 
 	phone : Number,
 	email : String,
-	register_time : { type: Date,default: Date.now},
+	register_time : { type: Date,default: Date.now}, //注册时间
 	group : {
 		type : String,
 		ref : 'AdminGroup'
@@ -27,5 +27,17 @@ const AdminUserSchema = new Schema({
 });
 
 const AdminUser = mongoose.model("AdminUser",AdminUserSchema);
+
+//初始化插入超级管理员数据
+AdminUser.create({
+	userName: 'admin',
+	password: 'admin123',
+	email: 'xuha_715@163.com'
+},function(err,user){
+	if(!err){
+		console.log('AdminUser saved!');
+		console.log('AdminUser:',user);
+	}
+});
 
 module.exports = AdminUser;

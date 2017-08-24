@@ -48,9 +48,40 @@
 			this.showLogin = true;
 		},
 		methods: {
-			submitForm(form){
-				this.$router.push('manage');
-			}
+			 submitForm(formName) {
+			  	this.$refs[formName].validate((valid) => {
+			  		if(valid){
+			  			
+			  			this.$http.post('http://localhost:1225/admin/login',this.loginForm).then((res) => {
+			  				console.log(res);
+					    	if(res.data.success){
+					    		this.$message({
+					    			type: 'success',
+					    			message: '登录成功'
+					    		});
+					    		// this.$store.dispatch('setLogin');
+					    		// this.$router.push('Main');
+					    	}else{
+					    		this.$message({
+					    			type: 'error',
+					    			message: res.data.msg
+					    		})
+					    	}
+					    });
+
+			  		}else{
+			  			this.$notify.error({
+			  				title: '错误',
+			  				message: '请输入正确的用户名密码',
+			  				offset: 100
+			  			});
+			  			return false;
+			  		}
+			  	}); 
+			  }	
+			// submitForm(form){
+			// 	this.$router.push('manage');
+			// }
 		}
 	}
 </script>

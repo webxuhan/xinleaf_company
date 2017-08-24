@@ -18,6 +18,7 @@ const settings = require('./models/db/settings');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
+const admin = require('./routes/admin');
 
 const app = express();
 
@@ -78,6 +79,7 @@ app.use(session({
 
 app.use('/', index); 	//前台api接口
 app.use('/users', users);
+app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
