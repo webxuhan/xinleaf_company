@@ -46,7 +46,7 @@ const User = require('../models/User');
 				if( user ) {
 					//将cookie存入缓存
 					filter.gen_session(user,res);
-					res.json({success:true,error:false,msg:'登录成功',id:user._id,name:user.name,phoneNum:user.phoneNum});
+					res.json({success:true,error:false,msg:'登录成功',data:{id:user._id,name:user.name,phoneNum:user.phoneNum}});
 					console.log('登录的用户:',user);
 				} else {
 					res.json({success:false,error:true,msg:'用户名或密码错误'});
