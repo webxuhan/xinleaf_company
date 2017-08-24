@@ -21,10 +21,10 @@ const User = require('../models/User');
 
 // const returnUserRouter = (io) =>{
 // 	检查是否登录
-	function isLogined(req){
-		return req.session.logined;
-	}
-	console.log('进入user接口');
+	// function isLogined(req){
+	// 	return req.session.logined;
+	// }
+	// console.log('进入user接口');
 //	用户登录提交请求
 	router.post('/doLogin',function(req,res,next){
 		console.log('登录');
@@ -39,17 +39,18 @@ const User = require('../models/User');
 			errors = '用户名3-10个字符';
 		}
 		if( errors ) {
+			console.log('errors:',errors);
 			res.json({success:false,error:true,'msg':errors});
 		} else {
 			User.findOne({name:name,password:password},function(err,user){
 				if( user ) {
 					//将cookie存入缓存
 					filter.gen_session(user,res);
-					res.json({success:true,error:false,msg:'登录成功'});
+					res.json({success:true,error:false,msg:'登录成功',id:user._id,name:user.name,phoneNum:user.phoneNum});
 					console.log('登录的用户:',user);
 				} else {
 					res.json({success:false,error:true,msg:'用户名或密码错误'});
-					console.log(err);
+					console.log('err:',err);
 				}
 			})
 		}
