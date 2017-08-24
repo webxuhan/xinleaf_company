@@ -4,24 +4,21 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-	userInfo: {
-		userName: '',
-		isLogin: false
-	}
+	userInfo: {}
 }
 
 const mutations = {
-	setLogin(state){
-		state.userInfo.isLogin = true;
+	setUserInfo(state,userInfo){
+		state.userInfo = userInfo;
 	},
 	logout(state){
-		state.userInfo.isLogin = false;
+		state.userInfo = {};
 	}
 }
 
 const actions = {
-	setLogin({commit}){
-		commit('setLogin');
+	setUserInfo({commit},user){
+		commit('setUserInfo', user);
 	},
 	logout({commit}){
 		commit('logout');
