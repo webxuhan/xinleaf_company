@@ -49,19 +49,27 @@ export default {
 	  		if(valid){
 	  			
 	  			this.$http.post('http://localhost:1225/users/doLogin',this.form).then((res) => {
-	  				console.log(res);
 			    	if(res.data.success){
+
+			    		let user = {
+			    			name: res.data.data.name,
+			    			userId: res.data.data.id,
+			    			phoneNum: res.data.data.phoneNum
+			    		};
+			    		window.window.sessionStorage.user = JSON.stringify(user);
+			    		this.$store.dispatch('setUserInfo',user);
+
 			    		this.$message({
 			    			type: 'success',
 			    			message: '登录成功'
 			    		});
-			    		this.$store.dispatch('setLogin');
+			    		
 			    		this.$router.push('Main');
 			    	}else{
 			    		this.$message({
 			    			type: 'error',
 			    			message: res.data.msg
-			    		})
+			    		});
 			    	}
 			    });
 

@@ -76,16 +76,26 @@ methods: {
   		if(valid){
   			
   			this.$http.post('http://localhost:1225/users/doReg',this.form).then((res) => {
-		    	if(res){
-		    		console.log(res.data);
+		    	if(res.data){
+		    		this.$message({
+		    			type: 'success',
+		    			message: '注册成功'
+		    		});
+		    		this.$router.push('Login');
+		    	}else{
+		    		this.$message({
+		    			type: 'error',
+		    			message: res.data.msg
+		    		});
 		    	}
-		    })
-		    .catch((error) => {
-		    	console.log(error);
 		    });
 
   		}else{
-  			console.log('serror');
+  			this.$notify.error({
+  				title: '错误',
+  				message: '请输入正确的注册项',
+  				offset: 100
+  			});
   			return false;
   		}
   	});
