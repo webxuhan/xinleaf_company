@@ -2,7 +2,7 @@
 <div id="head">
 	<el-row class="head-wrap">
 		<el-col :span="16">
-			<div class="logo"><img src="../assets/logo.jpg"></div>
+			<div class="logo"><!-- <img src="../assets/logo.jpg"> --></div>
 		</el-col>
 		<el-col :span="8">
 			<!-- <div class="phone">
@@ -54,9 +54,9 @@ export default {
       search: '',
       activeIndex: '1',
       sliders:[
-      	require('../assets/banner-home-1.jpg'),
+      	/*require('../assets/banner-home-1.jpg'),
       	require('../assets/banner-home-2.jpg'),
-      	require('../assets/banner-home-3.jpg')
+      	require('../assets/banner-home-3.jpg')*/
       ]
     }
   },

@@ -47,14 +47,27 @@ export default {
 	  		if(valid){
 	  			
 	  			this.$http.post('http://localhost:1225/users/doLogin',this.form).then((res) => {
-			    	console.log(res.data);
-			    })
-			    .catch((error) => {
-			    	console.log(error);
+	  				console.log(res);
+			    	if(res.data.success){
+			    		this.$message({
+			    			type: 'success',
+			    			message: '登录成功'
+			    		});
+			    		this.$router.push('Main');
+			    	}else{
+			    		this.$message({
+			    			type: 'error',
+			    			message: res.data.msg
+			    		})
+			    	}
 			    });
 
 	  		}else{
-	  			console.log('error');
+	  			this.$notify.error({
+	  				title: '错误',
+	  				message: '请输入正确的用户名密码',
+	  				offset: 100
+	  			});
 	  			return false;
 	  		}
 	  	}); 
