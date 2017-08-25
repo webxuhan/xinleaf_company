@@ -7,7 +7,6 @@
 			    <el-table-column prop="name" label="员工姓名" width="180"></el-table-column>
 			    <el-table-column prop="address" label="手机号码" :formatter="formatter"></el-table-column> 
 			    <el-table-column prop="address1" label="邮箱" :formatter="formatter"></el-table-column> 
-			    <el-table-column prop="name" label="员工姓名" width="180"></el-table-column>
 			    <el-table-column prop="tag" label="员工角色" width="100" 
 			     :filters="[{ text: '管理人员', value: '管理人员' }, { text: '普通人员', value: '普通人员' }]"
 			      :filter-method="filterTag" filter-placement="bottom-end">
@@ -35,7 +34,21 @@
 	export default{
 		mounted(){
 			this.$http.post('http://localhost:1225/admin/getStaffList').then((res) =>{
-				console.log(res);
+				console.log(res.data.data);
+				[
+					this.tableData.data,
+					this.tableData.name,
+					this.tableData.phoneNum,
+					this.tableData.email,
+					this.tableData.role
+				] = [
+					res.data.data.register_time,
+					res.data.data.userName,
+					res.data.data.phoneNum,
+					res.data.data.email,
+					res.data.data.role,
+				];
+				console.log('tableData:',this.tableData);
 			})
 		},
 		data() {
@@ -43,7 +56,8 @@
 				tableData: [{
 				date: '2016-05-02',
 				name: '王小虎',
-				address: '上海市普陀区金沙江路 1518 弄',
+				phoneNum: '上海市普陀区金沙江路 1518 弄',
+				email:'24546',
 				tag: '管理人员'
 				}, {
 				date: '2016-05-04',

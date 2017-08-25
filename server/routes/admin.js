@@ -67,9 +67,41 @@ router.post('/addStaff',(req,res,next) =>{
 
 //员工信息列表展示
 router.post('/getStaffList',(req,res,next) => {
-	console.log('接收到信息展示请求');
-	DbOpt.findAll(AdminUser,req,res);
+	AdminUser.aggregate([
+		{
+			$match : {role :{$ne: 0}}
+		},
+		{
+		    $project: {
+		        'register_time': {
+		            // 将register_time字段加上8*60*60*1000毫秒后,再格式化时间
+		            $dateToString: {format: "%Y-%m-%d %H:%M:%S", date: {$add:['$register_time',28800000] } }
+		        },
+		        '_id': '$_id',
+		        'userName': '$userName',
+		        'phoneNum': '$phoneNum',
+		        'email': '$email',
+		        'role' : '$role'
+		    }
+		}
+	]).exec((err,user) =>{
+			if( !err ) {
+				console.log(user);
+				res.json({success:true,error:false,data:user})
+			} else {
+				console.log('展示信息失败：',err);
+			}
+		})
 })
 
 
 module.exports = router;
+// {
+// 	_id: user._id,
+// 	register_time: user.register_time,
+// 	userName: user.userName,
+// 	phoneNum: user.phoneNum,
+// 	email: user.email,
+// 	role: user.role
+// }
+// select('_id register_time userName phoneNum email role')

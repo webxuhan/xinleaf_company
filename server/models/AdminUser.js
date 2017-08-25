@@ -5,6 +5,7 @@
 const mongoose = require("mongoose");
 const shortid = require("shortid");
 const Schema = mongoose.Schema;
+// console moment = require('moment');
 
 const AdminGroup = require("./AdminGroup");
 
@@ -25,6 +26,10 @@ const AdminUserSchema = new Schema({
 		ref : 'AdminGroup'
 	}
 });
+
+AdminUserSchema.statics = {
+	
+}
 
 const AdminUser = mongoose.model("AdminUser",AdminUserSchema);
 

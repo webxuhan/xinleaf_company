@@ -91,7 +91,15 @@
 								this.$message({
 									type: 'success',
 									message: '员工信息添加成功'
-								})
+								});
+								this.staffForm = {
+									userName: '',
+									phoneNum: '',
+									email: '',
+									role: '',
+									password: '',
+									repassword: '' 
+								}
 							} else {
 								this.$message({
 				    			type: 'error',
