@@ -1,7 +1,7 @@
 <template>
   	<div class="login_page fillcontain">
 	  	<transition name="form-fade" mode="in-out">
-	  		<section class="form_contianer" v-show="showLogin">
+	  		<section class="form_contianer">
 		  		<div class="manage_tip">
 		  			<p>xinleaf后台管理系统</p>
 		  		</div>
@@ -16,9 +16,6 @@
 				    	<el-button type="primary" @click="submitForm('loginForm')" class="submit_btn">登陆</el-button>
 				  	</el-form-item>
 				</el-form>
-				<p class="tip">温馨提示：</p>
-				<p class="tip">未登录过的新用户，自动注册</p>
-				<p class="tip">注册过的用户可凭账号密码登录</p>
 	  		</section>
 	  	</transition>
   	</div>
@@ -40,12 +37,8 @@
 					password: [
 						{ required: true, message: '请输入密码', trigger: 'blur' }
 					],
-				},
-				showLogin: false,
+				}
 			}
-		},
-		mounted(){
-			this.showLogin = true;
 		},
 		methods: {
 			 submitForm(formName) {
@@ -53,14 +46,21 @@
 			  		if(valid){
 			  			
 			  			this.$http.post('http://localhost:1225/admin/login',this.loginForm).then((res) => {
-			  				console.log(res);
+
 					    	if(res.data.success){
+
+					    		let user = {
+					    			name: res.data.data.userName
+					    		};
+					    		window.window.sessionStorage.user = JSON.stringify(user);
+								this.$store.dispatch('setAdminInfo',user);
+
 					    		this.$message({
 					    			type: 'success',
 					    			message: '登录成功'
 					    		});
-					    		// this.$store.dispatch('setLogin');
-					    		// this.$router.push('Main');
+					    		
+					    		this.$router.push('manage');
 					    	}else{
 					    		this.$message({
 					    			type: 'error',
@@ -79,9 +79,7 @@
 			  		}
 			  	}); 
 			  }	
-			// submitForm(form){
-			// 	this.$router.push('manage');
-			// }
+
 		}
 	}
 </script>
@@ -112,10 +110,6 @@
 			width: 100%;
 			font-size: 16px;
 		}
-	}
-	.tip{
-		font-size: 12px;
-		color: red;
 	}
 	.form-fade-enter-active, .form-fade-leave-active {
 	  	transition: all 1s;
