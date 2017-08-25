@@ -28,12 +28,14 @@ const DbOpt = {
 
 	},
 	findAll : function( obj,req,res,logMsg ) { 	//查找指定对象所有记录
+		console.log('obj:',obj);
 		obj.find({}, function (err,result) {
 			if ( err ) {
 				res.next(err);
+				console.log('查询err:',err);
 			} else {
-				console.log(logMsg+' success!');
-				return res.json(result);
+				console.log(result+' success!');
+				res.json({result:result});
 			}
 		})
 	},
@@ -45,7 +47,7 @@ const DbOpt = {
 				if( err) {
 					res.next(err);
 				} else {
-					console.log(logMsg+' success');
+					console.log(result+' success');
 					return res.json(result);
 				}
 			})

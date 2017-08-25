@@ -94,8 +94,8 @@
 								})
 							} else {
 								this.$message({
-					    			type: 'error',
-					    			message: res.data.msg
+				    			type: 'error',
+				    			message: res.data.msg
 			    				});
 							}
 						});	

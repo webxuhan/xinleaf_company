@@ -20,7 +20,7 @@ const crypto = require('crypto');
 //数据库操作对象
 const DbOpt = require('../models/Dbopt');
 
-//后台登录接口
+//后台用户登录
 router.post('/login',(req,res,next) =>{
 	const username = req.body.username;
 	const password = req.body.password;
@@ -42,12 +42,19 @@ router.post('/login',(req,res,next) =>{
 	})
 });
 
+//后台用户退出
+router.post('/signout',(req,res) => {
+	req.session.adminlogined = false;
+    req.session.adminUserInfo = '';
+    res.json({success:true,error:false,msg:'退出成功'});
+})
+
 //添加员工信息
 router.post('/addStaff',(req,res,next) =>{
 	var errors;
 	const userName = req.body.userName;
-	const phone = req.body.phoneNum;
-	AdminUser.find({userName:userName,phone:phone}).exec((err,user) => {
+	const phoneNum = req.body.phoneNum;
+	AdminUser.find({userName:userName,phoneNum:phoneNum}).exec((err,user) => {
 		if( user.length > 0 ) {
 			errors = '该员工信息已添加';
 			res.json({success:false,error:true,msg:errors});
@@ -56,6 +63,12 @@ router.post('/addStaff',(req,res,next) =>{
 			console.log('员工信息添加成功');
 		}
 	})
+})
+
+//员工信息列表展示
+router.post('/getStaffList',(req,res,next) => {
+	console.log('接收到信息展示请求');
+	DbOpt.findAll(AdminUser,req,res);
 })
 
 
