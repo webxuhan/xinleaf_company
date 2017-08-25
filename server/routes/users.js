@@ -69,7 +69,7 @@ const User = require('../models/User');
 			const query = User.find({name : name});
 			query.exec(function(err,user){
 				if( user.length > 0 ) {
-					errors = '用户名已存在！';
+					errors = '用户名已存在';
 					res.json({success:false,error:true,msg:errors});
 				} else {
 					Dbopt.addOne(User,req, res);

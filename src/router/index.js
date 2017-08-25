@@ -14,7 +14,8 @@ const categoryList = r => require.ensure([], () => r(require('@/views/admin/cate
 const addCategory = r => require.ensure([], () => r(require('@/views/admin/addCategory')), 'addCategory');
 const goodsList = r => require.ensure([], () => r(require('@/views/admin/goodsList')), 'goodsList');
 const addGood = r => require.ensure([], () => r(require('@/views/admin/addGood')), 'addGood');
-
+const staffList = r => require.ensure([], () => r(require('@/views/admin/staffList')), 'staffList');
+const addStaff = r => require.ensure([], () => r(require('@/views/admin/addStaff')), 'addStaff');
 export default new Router({
   routes: [
     {
@@ -70,6 +71,16 @@ export default new Router({
         path: 'addGood',
         component: addGood,
         meta: ['商品管理','添加商品']
+      },
+      {
+        path: 'staffList',
+        component: staffList,
+        meta: ['员工管理','员工列表']
+      },
+      {
+        path: 'addStaff',
+        component: addStaff,
+        meta: ['员工管理','添加员工']
       }
       ]
     }

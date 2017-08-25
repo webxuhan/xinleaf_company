@@ -21,7 +21,7 @@ const crypto = require('crypto');
 const DbOpt = require('../models/Dbopt');
 
 //后台登录接口
-router.post('/login',(req,res) =>{
+router.post('/login',(req,res,next) =>{
 	const username = req.body.username;
 	const password = req.body.password;
 	console.log(username,password);
@@ -40,6 +40,23 @@ router.post('/login',(req,res) =>{
 			res.json({success:false,error:true,msg:'用户名或密码错误'});
 		}
 	})
+});
+
+//添加员工信息
+router.post('/addStaff',(req,res,next) =>{
+	var errors;
+	const userName = req.body.userName;
+	const phone = req.body.phoneNum;
+	AdminUser.find({userName:userName,phone:phone}).exec((err,user) => {
+		if( user.length > 0 ) {
+			errors = '该员工信息已添加';
+			res.json({success:false,error:true,msg:errors});
+		} else {
+			DbOpt.addOne(AdminUser,req,res);
+			console.log('员工信息添加成功');
+		}
+	})
 })
+
 
 module.exports = router;

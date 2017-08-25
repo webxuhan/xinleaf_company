@@ -26,6 +26,11 @@
 						<template slot="title"><i class="el-icon-setting"></i>设置</template>
 						<el-menu-item index="adminSet">管理员设置</el-menu-item>
 					</el-submenu>
+					<el-submenu index="7">
+						<template slot="title"><i class="el-icon-information"></i>员工管理</template>
+						<el-menu-item index="/manage/staffList">员工列表</el-menu-item>	
+						<el-menu-item index="/manage/addStaff">添加员工</el-menu-item>	
+					</el-submenu>
 				</el-menu>
 			</el-col>
 			<el-col :span="20" style="height: 100%;overflow: auto;">
