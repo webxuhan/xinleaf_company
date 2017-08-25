@@ -4,7 +4,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-	userInfo: {}
+	userInfo: {},
+	adminInfo: {}
 }
 
 const mutations = {
@@ -13,6 +14,12 @@ const mutations = {
 	},
 	logout(state){
 		state.userInfo = {};
+	},
+	setAdminInfo(state,adminInfo){
+		state.adminInfo = adminInfo;
+	},
+	signout(state){
+		state.adminInfo = {};
 	}
 }
 
@@ -22,6 +29,12 @@ const actions = {
 	},
 	logout({commit}){
 		commit('logout');
+	},
+	setAdminInfo({commit},user){
+		commit('setAdminInfo', user);
+	},
+	signout({commit}){
+		commit('signout');
 	}
 }
 
