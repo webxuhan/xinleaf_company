@@ -28,7 +28,7 @@ const AdminUserSchema = new Schema({
 });
 
 AdminUserSchema.statics = {
-	
+		
 }
 
 const AdminUser = mongoose.model("AdminUser",AdminUserSchema);
