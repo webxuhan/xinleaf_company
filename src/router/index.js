@@ -6,6 +6,7 @@ Vue.use(Router)
 const Main = r => require.ensure([], () => r(require('@/views/site/Home')), 'Home');
 const Register = r => require.ensure([], () => r(require('@/views/site/Register')), 'Register');
 const Login = r => require.ensure([], () => r(require('@/views/site/Login')), 'Login');
+const Product = r => require.ensure([], () => r(require('@/views/site/Product')), 'Product');
 
 const manage = r => require.ensure([], () => r(require('@/views/admin/manage')), 'manage');
 const adminLogin = r => require.ensure([], () => r(require('@/views/admin/adminLogin')), 'adminLogin');
@@ -36,6 +37,11 @@ export default new Router({
       path: '/Login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/Product',
+      name: 'Product',
+      component: Product
     },
     {
       path: '/adminLogin',

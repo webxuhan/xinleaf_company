@@ -30,7 +30,7 @@
 			<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
 			  <el-menu-item index="1"><router-link to="Main">首页</router-link></el-menu-item>
 			  <el-submenu index="2">
-			    <template slot="title">产品中心</template>
+			    <template slot="title"><router-link to="Product">产品中心</router-link></template>
 			    <el-menu-item index="2-1">pressure gauge</el-menu-item>
 			    <el-menu-item index="2-2">tie guage</el-menu-item>
 			    <el-menu-item index="2-3">pressure gauge</el-menu-item>
