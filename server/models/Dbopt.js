@@ -24,9 +24,27 @@ console.log("数据库连接成功!");
 
 const DbOpt = {
 	//信息删除操作
-	del : function( ) {
+	
+    del : function(obj,req,res,logMsg){
+        const targetId = req.body._id;
+        console.log('targetId:',targetId);
+        if(shortid.isValid(targetId)){
+            obj.remove({_id : req.body._id},function(err,result){
+                if(err){
+                	console.log(0)
+                    res.json({success:false,error:true,msg:err});
+                }else{
+                	console.log(1)
+                    console.log(result+" success!");
+                    res.json({success:true,error:false,msg:'删除成功'});
+                }
+            })
+        }else{
+        	console.log(2)
+            res.json({success:false,error:true,msg:settings.system_illegal_param});
+        }
 
-	},
+    },
 	findAll : function( obj,req,res,logMsg ) { 	//查找指定对象所有记录
 		console.log('obj:',obj);
 		obj.find({}, function (err,result) {
@@ -72,7 +90,7 @@ const DbOpt = {
 				}
 			})
 		} else {
-			res.end(settings.system_illegal_param);
+			res.json(settings.system_illegal_param);
 		}
 	},
 	addOne : function( obj,req,res ) {  //单个添加

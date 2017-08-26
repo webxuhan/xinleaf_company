@@ -35,6 +35,7 @@ router.post('/login',(req,res,next) =>{
 		if( user ) {
 			req.session.adminlogined = true;
 			req.session.adminUserInfo = user;
+			console.log()
 			res.json({success:true,error:false,msg:'登录成功',data:{userName:user.userName}});
 		} else{
 			res.json({success:false,error:true,msg:'用户名或密码错误'});
@@ -86,14 +87,19 @@ router.post('/getStaffList',(req,res,next) => {
 		}
 	]).exec((err,user) =>{
 			if( !err ) {
-				console.log(user);
-				res.json({success:true,error:false,data:user})
+				// console.log(user);
+				res.json({success:true,error:false,data:[user]})
 			} else {
 				console.log('展示信息失败：',err);
 			}
 		})
 })
 
+//根据id删除员工信息
+router.post('/delStaffById',(req,res,next) =>{
+	// const _id = req.body._id;
+	DbOpt.del(AdminUser,req,res);
+})
 
 module.exports = router;
 // {
