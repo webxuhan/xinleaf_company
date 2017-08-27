@@ -7,6 +7,7 @@ const Main = r => require.ensure([], () => r(require('@/views/site/Home')), 'Hom
 const Register = r => require.ensure([], () => r(require('@/views/site/Register')), 'Register');
 const Login = r => require.ensure([], () => r(require('@/views/site/Login')), 'Login');
 const Product = r => require.ensure([], () => r(require('@/views/site/Product')), 'Product');
+const Pdetail = r => require.ensure([], () => r(require('@/views/site/Pdetail')), 'Pdetail');
 
 const manage = r => require.ensure([], () => r(require('@/views/admin/manage')), 'manage');
 const adminLogin = r => require.ensure([], () => r(require('@/views/admin/adminLogin')), 'adminLogin');
@@ -42,6 +43,11 @@ export default new Router({
       path: '/Product',
       name: 'Product',
       component: Product
+    },
+    {
+      path: '/Pdetail/:id',
+      name: 'Pdetail',
+      component: Pdetail
     },
     {
       path: '/adminLogin',
