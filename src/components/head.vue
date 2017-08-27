@@ -18,8 +18,8 @@
 				<span class="logout" @click="logout">退出</span>
 			</div>
 			<div v-if="!userInfo.userId">
-				<router-link to="Register">注册</router-link>
-				<router-link to="Login">登录</router-link>
+				<router-link to="/Register">注册</router-link>
+				<router-link to="/Login">登录</router-link>
 			</div>
 			
 			
