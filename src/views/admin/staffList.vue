@@ -12,7 +12,7 @@
 			     :filters="[{ text: '管理人员', value: '1' }, { text: '普通人员', value: '2' }]"
 			      :filter-method="filterTag" filter-placement="bottom-end">
 			      <template scope="scope">
-			        <el-tag :type="scope.row.role === '1' ? 'primary' : 'success'" close-transition>{{scope.row.role}}</el-tag>
+			        <el-tag :type="scope.row.role === '1' ? 'primary' : 'success'" close-transition>{{scope.row.role == 1?'管理人员':'普通人员'}}</el-tag>
 		  		 </template>
 		   		</el-table-column>
 		   		<el-table-column label="操作">
@@ -30,17 +30,18 @@
 			</el-table>
 		</el-row>
 		<!-- 员工编辑弹出层 -->
-		<el-dialog title="员工信息编辑" :visible.sync="dialogFormVisible">
-		  <el-form :model="editForm">
+		<el-dialog title="员工信息编辑" :model='editForm' :visible.sync="dialogFormVisible">
+
+		  <el-form >
 		    <el-form-item label="活动名称" :label-width="formLabelWidth">
-		      <el-input v-model="editForm.userName" auto-complete="off"></el-input>
+		      <el-input prop="editForm.userName" auto-complete="off"></el-input>
 		    </el-form-item>
-		    <el-form-item label="活动区域" :label-width="formLabelWidth">
+		    <!-- <el-form-item label="活动区域" :label-width="formLabelWidth">
 		      <el-select v-model="editForm.region" placeholder="请选择活动区域">
 		        <el-option label="区域一" value="shanghai"></el-option>
 		        <el-option label="区域二" value="beijing"></el-option>
 		      </el-select>
-		    </el-form-item>
+		    </el-form-item> -->
 		  </el-form>
 		  <div slot="footer" class="dialog-footer">
 		    <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -53,14 +54,6 @@
 <script>
 	import headTop from '../../components/headTop';
 	export default{
-		mounted(){
-			this.$http.post('http://localhost:1225/admin/getStaffList').then((res) =>{
-				// console.log(res.data.data);
-				this.tableData = res.data.data[0];
-				// console.log('tableData:',this.tableData);
-			});
-			// console.log(vm.$root)
-		},
 		data() {
 			return {
 				tableData : [{
@@ -73,7 +66,7 @@
 		        dialogFormVisible: false,
 		        dialogVisible: false,
 		        editForm: {
-		          userName: '',
+		          userName: 'test',
 		          phoneNum: '',
 		          date1: '',
 		          date2: '',
@@ -84,6 +77,15 @@
 		        },
 		        formLabelWidth: '120px'
 			}
+		},
+		mounted(){
+			console.log('jiazss')
+			this.$http.post('http://localhost:1225/admin/getStaffList').then((res) =>{
+				// console.log(res.data.data);
+				this.tableData = res.data.data[0];
+				// console.log('tableData:',this.tableData);
+			});
+			// console.log(vm.$root)
 		},
 		methods: {
 			formatter(row, column) {
