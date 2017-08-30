@@ -45,12 +45,11 @@
 		  	  <el-radio class="radio" v-model="editForm.role" label="1">管理人员</el-radio>
   			  <el-radio class="role" v-model="editForm.role" label="2">普通人员</el-radio>
 		  	</el-form-item>
-		  	<el-form-item>
+		  	<el-form-item :label-width="formLabelWidth">
 			    <el-button @click="dialogFormVisible = false">取 消</el-button>
 			    <el-button type="primary" @click="editStaff('editForm')">确 定</el-button>
 			  </el-form-item>
 		  </el-form>
-		  
 		</el-dialog>
 		<!-- 员工删除提示弹出层 -->
 	</div>
@@ -144,11 +143,24 @@
 			editStaff(editForm) {
 				this.$refs[editForm].validate((valid) =>{
 					if(valid){
-						
+						console.log('test:',this.editForm);
 						this.$http.post('http://localhost:1225/admin/editStaff',this.editForm).then((res) => {
-							
+							console.log('res.data:',res.data);
+							if(res.data.success){
+								console.log('修改成功');
+								this.$message({
+						            type: 'info',
+						            message: res.data.msg
+					            }); 
+								this.dialogFormVisible = false;
+							}else{
+								console.log(res.data.msg);
+								this.$message({
+						            type: 'error',
+						            message: res.data.msg
+					            }); 
+							}
 						})
-						this.dialogFormVisible = false;
 					}else{
 			  			return false;
 			  		}

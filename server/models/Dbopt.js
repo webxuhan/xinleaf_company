@@ -1,4 +1,4 @@
-	/**
+/**
  * 数据库相关操作
 **/
 
@@ -74,23 +74,25 @@ const DbOpt = {
 		}
 	},
 	updateByID : function( obj,req,res,logMsg ) {
-		const params = url.parse(req.url,true);
-		const targetId = params.query.uid;
-
+		const targetId = req.body._id;
+		console.log('targetId:',targetId)
 		if( shortid.isValid(targetId) ) {
 			const conditions = {_id : targetId};
 			req.body.updateDate = new Date();
 			const update = {$set : req.body};
 			obj.update(conditions, update, function(err,result) {
 				if( err ) {
-					res.json(err);
+					console.log('dberr:',err);
+					res.json({success:false,error:true,msg:err});
 				} else {
-					console.log(logMsg+' success!');
-					res.json('success');
+					console.log(logMsg+' success!'+result);
+					console.log(result);
+					res.json({success:true,error:false,msg:'信息修改成功'});
 				}
 			})
 		} else {
-			res.json(settings.system_illegal_param);
+			res.json({success:false,error:true,msg:settings.system_illegal_param});
+			// res.json(settings.system_illegal_param);
 		}
 	},
 	addOne : function( obj,req,res ) {  //单个添加
@@ -123,3 +125,6 @@ const DbOpt = {
 }
 
 module.exports = DbOpt;
+
+
+
