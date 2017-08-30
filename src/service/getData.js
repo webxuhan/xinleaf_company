@@ -1,4 +1,4 @@
-import fetch from '@/config/fetch'
+import fetch from '../config/fetch'
 
 /**
  * 登陆
