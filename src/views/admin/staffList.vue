@@ -30,12 +30,12 @@
 			</el-table>
 		</el-row>
 		<!-- 员工编辑弹出层 -->
-		<el-dialog title="员工信息编辑" :model='editForm' :visible.sync="dialogFormVisible">
-		  <el-form :rules="rules">
-		    <el-form-item label="员工姓名" :label-width="formLabelWidth">
+		<el-dialog title="员工信息编辑" :visible.sync="dialogFormVisible">
+		  <el-form :model="editForm" :rules="rules" ref="editForm" class="demo-ruleForm">
+		    <el-form-item label="员工姓名" :label-width="formLabelWidth" prop="userName">
 		      <el-input v-model="editForm.userName" auto-complete="off" :disabled="true"></el-input>
 		    </el-form-item>
-		    <el-form-item label="手机号码" :label-width="formLabelWidth">
+		    <el-form-item label="手机号码" :label-width="formLabelWidth" prop="phoneNum">
 		      <el-input v-model="editForm.phoneNum" auto-complete="off"></el-input>
 		    </el-form-item>
 		    <el-form-item label="邮箱" :label-width="formLabelWidth">
@@ -45,11 +45,12 @@
 		  	  <el-radio class="radio" v-model="editForm.role" label="1">管理人员</el-radio>
   			  <el-radio class="role" v-model="editForm.role" label="2">普通人员</el-radio>
 		  	</el-form-item>
+		  	<el-form-item>
+			    <el-button @click="dialogFormVisible = false">取 消</el-button>
+			    <el-button type="primary" @click="editStaff('editForm')">确 定</el-button>
+			  </el-form-item>
 		  </el-form>
-		  <div slot="footer" class="dialog-footer">
-		    <el-button @click="dialogFormVisible = false">取 消</el-button>
-		    <el-button type="primary" @click="dialogFormVisible = false, editStaff('editForm')">确 定</el-button>
-		  </div>
+		  
 		</el-dialog>
 		<!-- 员工删除提示弹出层 -->
 	</div>
@@ -80,26 +81,21 @@
 		        },
 		        formLabelWidth: '120px',
 		        rules:{
-					userName: [
-						{required: true, message: '请输入用户名', trigger: 'blur'},
-						{min: 3,max: 10, message: '长度在3到10个字符', trigger: 'blur'}
-					],
 					phoneNum: [
-						{required: true, message: '请输入手机号码', trigger: 'blur'},
+						{required: true, message: '请输入手机号码', trigger: 'blur'}
 					]
 				}
 			}
 		},
 		mounted(){
-			console.log('jiazss')
-			this.$http.post('http://localhost:1225/admin/getStaffList').then((res) =>{
-				// console.log(res.data.data);
-				this.tableData = res.data.data[0];
-				// console.log('tableData:',this.tableData);
-			});
-			// console.log(vm.$root)
+			this.initData();
 		},
 		methods: {
+			async initData(){
+				this.$http.post('http://localhost:1225/admin/getStaffList').then((res) =>{
+					this.tableData = res.data.data[0];
+				});
+			},
 			formatter(row, column) {
 			return row.address;
 			},
@@ -146,15 +142,17 @@
 		        });
 			},
 			editStaff(editForm) {
-				console.log('提交数据:',this.editForm);
-				this.$http.post('http://localhost:1225/admin/editStaff',this.editForm).then((res) => {
-					
+				this.$refs[editForm].validate((valid) =>{
+					if(valid){
+						
+						this.$http.post('http://localhost:1225/admin/editStaff',this.editForm).then((res) => {
+							
+						})
+						this.dialogFormVisible = false;
+					}else{
+			  			return false;
+			  		}
 				})
-				// this.$refs[editForm].validate((valid) =>{
-				// 	if(valid){
-				// 		console.log('修改成功')
-				// 	}
-				// })
 				
 			}
 		},
