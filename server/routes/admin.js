@@ -35,10 +35,7 @@ router.post('/login',(req,res,next) =>{
 			res.json({success:false,error:true,msg:err});
 		}
 		if( user ) {
-			req.session.adminlogined = true;
 			req.session.adminUserInfo = user;
-			/*console.log('test11111111111111:',req.session.adminUserInfo);
-			console.log('req.session.adminlogined:',req.session.adminlogined);*/
 			console.log('登陆后req.session=>',req.session);
 			res.json({success:true,error:false,msg:'登录成功',data:{userName:user.userName}});
 		} else{
@@ -49,9 +46,8 @@ router.post('/login',(req,res,next) =>{
 
 // 获取用户信息
 router.post('/getAdminInfo',(req,res) => {
-	//const username = req.session.adminUserInfo.userName;
-	console.log(req.session);
-		/*if (!admin_id || !Number(admin_id)) {
+	const userName = req.session.adminUserInfo.userName;
+		if (!userName) {
 			console.log('获取管理员信息的session失效');
 			res.send({
 				status: 0,
@@ -61,15 +57,18 @@ router.post('/getAdminInfo',(req,res) => {
 			return 
 		}
 		try{
-			const info = await AdminModel.findOne({id: admin_id}, '-_id -__v -password');
-			if (!info) {
-				throw new Error('未找到当前管理员')
-			}else{
-				res.send({
-					status: 1,
-					data: info
-				})
-			}
+			const info = AdminUser.findOne({'userName':userName}).exec((err,user)=>{
+				if (!info) {
+					throw new Error('未找到当前管理员')
+				}else{
+					res.send({
+						status: 1,
+						data: info
+					})
+				}
+			})
+
+			
 		}catch(err){
 			console.log('获取管理员信息失败');
 			res.send({
@@ -77,13 +76,11 @@ router.post('/getAdminInfo',(req,res) => {
 				type: 'GET_ADMIN_INFO_FAILED',
 				message: '获取管理员信息失败'
 			})
-		}*/
+		}
 });
 
 //后台用户退出
 router.post('/signout',(req,res) => {
-	console.log('退出前检查:',req.session);
-	req.session.adminlogined = false;
     req.session.adminUserInfo = '';
     res.json({success:true,error:false,msg:'退出成功'});
 })

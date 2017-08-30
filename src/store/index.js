@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 const state = {
 	userInfo: {},
-	adminInfo: {}
+	adminInfo: ''
 }
 
 const mutations = {
@@ -16,11 +16,11 @@ const mutations = {
 	logout(state){
 		state.userInfo = {};
 	},
-	setAdminInfo(state,adminInfo){
+	saveAdminInfo(state,adminInfo){
 		state.adminInfo = adminInfo;
 	},
 	signout(state){
-		state.adminInfo = {};
+		state.adminInfo = '';
 	}
 }
 
@@ -30,29 +30,21 @@ const actions = {
 	},
 	logout({commit}){
 		commit('logout');
-	},
-	setAdminInfo({commit},user){
-		commit('setAdminInfo', user);
-	}*/
+	},*/
 	getAdminData({commit}){
 		try{
 			axios.post('http://localhost:1225/admin/getAdminInfo')
-		    .then(function(res){
-		        console.log(res);
-		    })
-			// const res = await getAdminInfo()
-			/*this.$http.post('http://localhost:1225/admin/getAdminInfo').then((res) => {
-				console.log(res);
-			});*/
-
-			/*if (res.status == 1) {
-				commit('saveAdminInfo', res.data);
-			}else{
-				throw new Error(res)
-			}*/
+			    .then(function(res){
+			        if(res.data.status == 1){
+			        	commit('saveAdminInfo',res.data.data);
+			        }
+			    })
 		}catch(err){
 			console.log('您尚未登陆或者session失效')
 		}
+	},
+	signout({commit}){
+		commit('signout');
 	}
 }
 

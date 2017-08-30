@@ -41,7 +41,7 @@
 			}
 		},
 		mounted(){
-			if(!this.adminInfo.id){
+			if(!this.adminInfo){
 				this.getAdminData();
 			}
 		},
@@ -62,7 +62,7 @@
 					    			name: res.data.data.userName
 					    		};
 					    		window.window.sessionStorage.user = JSON.stringify(user);
-								this.$store.dispatch('setAdminInfo',user);
+								this.$store.dispatch('getAdminData');
 
 					    		this.$message({
 					    			type: 'success',
@@ -88,7 +88,17 @@
 			  		}
 			  	}); 
 			  }	
-
+		},
+		watch: {
+			adminInfo: function (newValue){
+				if (newValue.userName) {
+					this.$message({
+                        type: 'success',
+                        message: '检测到您之前登录过，将自动登录'
+                    });
+					this.$router.push('manage')
+				}
+			}
 		}
 	}
 </script>

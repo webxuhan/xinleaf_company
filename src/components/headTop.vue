@@ -24,18 +24,22 @@ export default {
 			
 		}
 	},
-	/*mounted() {
-		...mapState(['adminInfo'])
-	},*/
+	mounted() {
+		if(!this.adminInfo){
+			this.getAdminData()
+		};
+		// console.log('1=>',this.adminInfo);
+	},
 	computed: {
 		...mapState(['adminInfo'])
 	},
 	methods: {
+		...mapActions(['getAdminData']),
 		handleCommand(command) {
 			if (command == 'home') {
-				this.$router.push('/adminLogin');
+				this.$router.push('/manage');
 			}else if(command == 'signout'){
-
+				// 退出系统
 				this.$http.post('http://localhost:1225/admin/signout').then((res) => {
 
 					if (res.data.success) {
@@ -52,6 +56,17 @@ export default {
 	                    });
 					}
 				});
+			}
+		}
+	},
+	watch: {
+		adminInfo: function (newValue){
+			if (!newValue.userName) {
+				this.$message({
+                    type: 'error',
+                    message: 'session失效，请重新登录'
+                });
+				this.$router.push('adminLogin')
 			}
 		}
 	}
