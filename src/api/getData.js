@@ -1,4 +1,4 @@
-import fetch from '../config/fetch'
+import fetch from '@/config/fetch'
 
 /**
  * 登陆
@@ -13,8 +13,7 @@ export const login = data => fetch('/admin/login', data, 'POST');
 export const signout = () => fetch('/admin/signout');
 
 /**
- * 获取用户信息
+ * 获取员工列表信息
  */
-
-export const getAdminInfo = () => fetch('/admin/info');
+export const getStaffList = () => fetch('/admin/getStaffList');
 

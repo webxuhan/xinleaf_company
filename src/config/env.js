@@ -11,7 +11,7 @@ let routerMode = 'history';
 //let baseImgPath = 'http://localhost:8085/assets/upload';
 
 if (process.env.NODE_ENV == 'development') {
-	//baseUrl = 'http://localhost:1225';
+	baseUrl = 'http://localhost:1225';
 }else{
 	baseUrl = 'http://localhost:1225';
 }
