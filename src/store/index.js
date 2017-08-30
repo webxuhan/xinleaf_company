@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -24,7 +25,7 @@ const mutations = {
 }
 
 const actions = {
-	setUserInfo({commit},user){
+	/*setUserInfo({commit},user){
 		commit('setUserInfo', user);
 	},
 	logout({commit}){
@@ -32,9 +33,26 @@ const actions = {
 	},
 	setAdminInfo({commit},user){
 		commit('setAdminInfo', user);
-	},
-	signout({commit}){
-		commit('signout');
+	}*/
+	getAdminData({commit}){
+		try{
+			axios.post('http://localhost:1225/admin/getAdminInfo')
+		    .then(function(res){
+		        console.log(res);
+		    })
+			// const res = await getAdminInfo()
+			/*this.$http.post('http://localhost:1225/admin/getAdminInfo').then((res) => {
+				console.log(res);
+			});*/
+
+			/*if (res.status == 1) {
+				commit('saveAdminInfo', res.data);
+			}else{
+				throw new Error(res)
+			}*/
+		}catch(err){
+			console.log('您尚未登陆或者session失效')
+		}
 	}
 }
 

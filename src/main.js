@@ -6,7 +6,8 @@ import router from './router'
 import store from './store'
 
 import axios from 'axios'
-axios.defaults.headers.common['Authorization'] = 'jameschun';
+axios.defaults.withCredentials = true
+// axios.defaults.headers.common['Authorization'] = 'jameschun';
 Vue.prototype.$http = axios
 
 // 引入element-ui

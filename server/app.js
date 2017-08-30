@@ -16,9 +16,7 @@ const filter = require('./util/filter');
 //站点配置
 const settings = require('./models/db/settings');
 
-const index = require('./routes/index');
-const users = require('./routes/users');
-const admin = require('./routes/admin');
+
 
 const app = express();
 
@@ -26,7 +24,8 @@ const app = express();
 app.use(cors({
 	origin : ['http://localhost:8085','http://127.0.0.1:8085'], 	//允许这个域的访问
 	methods : ['GET','POST'], 	//只允许get和post请求
-	alloweHeaders : ['Content-Type','Authorization'] 	//只允许这两种请求头的链接访问
+	allowedHeaders : ['Content-Type','Authorization'], 	//只允许这两种请求头的链接访问
+  credentials : true
 }))
 
 
@@ -54,12 +53,17 @@ app.use(session({
     ttl : 1800  //过期时间
   }),
   resave : true,
-  saveUninitialized : true
+  saveUninitialized : false,
+  cookie:{maxAge : 1000*60*60}
 }));
 
 app.use(filter.authUser);
 
-console.log(1111111111111111111111111111111111);
+const index = require('./routes/index');
+const users = require('./routes/users');
+const admin = require('./routes/admin');
+
+/*console.log(1111111111111111111111111111111111);
 app.use(function(req, res, next){
   //针对前台会员
   res.locals.logined = req.session.logined;
@@ -74,7 +78,7 @@ app.use(function(req, res, next){
   console.log('res.locals:',res.locals);
   next();
 });
-console.log(222222222222222222222222);
+console.log(222222222222222222222222);*/
 // 事件监听
 // app.io = io;
 // io.on('connection',(socket) =>{

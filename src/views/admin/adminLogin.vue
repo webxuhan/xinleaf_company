@@ -22,7 +22,7 @@
 </template>
 
 <script>
-
+	import {mapActions, mapState} from 'vuex'
 	export default {
 	    data(){
 			return {
@@ -40,7 +40,16 @@
 				}
 			}
 		},
+		mounted(){
+			if(!this.adminInfo.id){
+				this.getAdminData();
+			}
+		},
+		computed: {
+			...mapState(['adminInfo'])
+		},
 		methods: {
+			...mapActions(['getAdminData']),
 			 submitForm(formName) {
 			  	this.$refs[formName].validate((valid) => {
 			  		if(valid){
