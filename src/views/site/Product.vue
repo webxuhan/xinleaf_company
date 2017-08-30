@@ -85,7 +85,10 @@ export default {
     return {
       currentPage4: 4
     };
-  }
+  },
+   mounted(){
+      console.log('加载一次11')
+    }
 }
 </script> 
 

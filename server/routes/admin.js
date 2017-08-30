@@ -25,6 +25,9 @@ router.post('/login',(req,res,next) =>{
 	const username = req.body.username;
 	const password = req.body.password;
 	console.log(username,password);
+	console.log('用户登录:',req.cookies);
+	console.log('用户登录body:',req.body);
+	console.log('用户登录sess:',req.session);
 	AdminUser.findOne({'userName':username,'password':password}).exec((err,user)=>{
 		console.log('err存在:',err);
 		console.log('user存在:',user);
@@ -35,7 +38,9 @@ router.post('/login',(req,res,next) =>{
 		if( user ) {
 			req.session.adminlogined = true;
 			req.session.adminUserInfo = user;
-			console.log()
+			console.log('test11111111111111:',req.session.adminUserInfo);
+			console.log('req.session.adminlogined:',req.session.adminlogined);
+			console.log('req.session:',req.session);
 			res.json({success:true,error:false,msg:'登录成功',data:{userName:user.userName}});
 		} else{
 			res.json({success:false,error:true,msg:'用户名或密码错误'});
@@ -45,6 +50,7 @@ router.post('/login',(req,res,next) =>{
 
 //后台用户退出
 router.post('/signout',(req,res) => {
+	console.log('退出前检查:',req.session);
 	req.session.adminlogined = false;
     req.session.adminUserInfo = '';
     res.json({success:true,error:false,msg:'退出成功'});
@@ -55,6 +61,10 @@ router.post('/addStaff',(req,res,next) =>{
 	var errors;
 	const userName = req.body.userName;
 	const phoneNum = req.body.phoneNum;
+	console.log('用户已登录:',req.cookies);
+	console.log('用户登录body:',req.body);
+	console.log('用户已登录sess:',req.session);
+	console.log('当前登录用户:',req.session.adminUserInfo);
 	AdminUser.find({userName:userName,phoneNum:phoneNum}).exec((err,user) => {
 		if( user.length > 0 ) {
 			errors = '该员工信息已添加';

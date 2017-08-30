@@ -2,7 +2,7 @@
 	<div>
 		<head-top></head-top>
 		<!-- Form -->
-		<el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
+		<el-button type="text" @click="dialogFormVisible = true, showData()">打开嵌套表单的 Dialog</el-button>
 
 		<el-dialog title="收货地址" :visible.sync="dialogFormVisible">
 		  <el-form :model="form">
@@ -14,6 +14,10 @@
 		        <el-option label="区域一" value="shanghai"></el-option>
 		        <el-option label="区域二" value="beijing"></el-option>
 		      </el-select>
+		    </el-form-item>
+		     <el-form-item label="员工角色" :label-width="formLabelWidth">
+		       <el-radio class="role" v-model="form.role" label="1">备选项</el-radio>
+ 			   <el-radio class="role" v-model="form.role" label="2">备选项</el-radio>
 		    </el-form-item>
 		  </el-form>
 		  <div slot="footer" class="dialog-footer">
@@ -36,6 +40,7 @@
 	          name: '',
 	          region: '',
 	          date1: '',
+	          role:2,
 	          date2: '',
 	          delivery: false,
 	          type: [],
@@ -44,6 +49,11 @@
 	        },
 	        formLabelWidth: '120px'
 	      };
+	    },
+	    methods:{
+	    	showData(){
+	    		console.log(typeof this.form.role);
+	    	}
 	    }
 	}
 </script>

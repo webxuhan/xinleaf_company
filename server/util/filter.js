@@ -25,7 +25,18 @@ exports.authUser = (req, res, next) =>{
 		return next();
 	}
 
-	// if ( req.session.user ) {
-		
-	// }
+	if ( req.session.user ) {
+		console.log('filter--->req.session.user');
+		next();
+	} else{
+		var auth_token = req.signedCookies[settings.auth_cookie_name];
+        if (!auth_token) {
+            return next();
+        }else{
+            var auth = auth_token.split('$$$$');
+            var user_id = auth[0];
+            console.log('filter.user_id:',user_id);
+            return next();
+        }
+	}
 }

@@ -36,13 +36,13 @@ export default {
 				this.$router.push('/adminLogin');
 			}else if(command == 'signout'){
 
-				this.$message({
-                    type: 'success',
-                    message: '退出成功'
-                });
-                this.$store.dispatch('signout');
-                this.$router.push('/adminLogin');
-				/*this.$http.get('http://localhost:1225/admin/signout').then((res) => {
+				// this.$message({
+    //                 type: 'success',
+    //                 message: '退出成功'
+    //             });
+    //             this.$store.dispatch('signout');
+    //             this.$router.push('/adminLogin');
+				this.$http.get('http://localhost:1225/admin/signout').then((res) => {
 					if (res.data.success) {
 						this.$message({
 	                        type: 'success',
@@ -56,7 +56,7 @@ export default {
 	                        message: res.data.message
 	                    });
 					}
-				});*/
+				});
 			}
 		}
 	}

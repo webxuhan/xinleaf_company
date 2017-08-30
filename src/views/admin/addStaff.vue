@@ -37,25 +37,25 @@
 	import headTop from '../../components/headTop';
 	export default{
 		data(){
-			var validatePass = (rule, value, callback) => {
-			    if (value === '') {
-			      callback(new Error('请输入密码'));
-			    } else {
-			      if (this.staffForm.repassword !== '') {
-			        this.$refs.staffForm.validateField('repassword');
-			      }
-			      callback();
-			    }
-			  };
-			var validatePass2 = (rule, value, callback) => {
-		        if (value === '') {
-		          callback(new Error('请再次输入密码'));
-		        } else if (value !== this.staffForm.password) {
-		          callback(new Error('两次输入密码不一致!'));
-		        } else {
-		          callback();
-		        }
-		      };
+			// var validatePass = (rule, value, callback) => {
+			//     if (value === '') {
+			//       callback(new Error('请输入密码'));
+			//     } else {
+			//       if (this.staffForm.repassword !== '') {
+			//         this.$refs.staffForm.validateField('repassword');
+			//       }
+			//       callback();
+			//     }
+			//   };
+			// var validatePass2 = (rule, value, callback) => {
+		 //        if (value === '') {
+		 //          callback(new Error('请再次输入密码'));
+		 //        } else if (value !== this.staffForm.password) {
+		 //          callback(new Error('两次输入密码不一致!'));
+		 //        } else {
+		 //          callback();
+		 //        }
+		 //      };
 			return {
 				staffForm: {
 					userName: '',
@@ -72,13 +72,13 @@
 					],
 					phoneNum: [
 						{required: true, message: '请输入手机号码', trigger: 'blur'},
-					],
-					password: [
-						{validator: validatePass, trigger: 'blur'}
-					],
-					repassword: [
-						{validator: validatePass2, trigger: 'blur'}
 					]
+					// password: [
+					// 	{validator: validatePass, trigger: 'blur'}
+					// ],
+					// repassword: [
+					// 	{validator: validatePass2, trigger: 'blur'}
+					// ]
 				}
 			}
 		},
