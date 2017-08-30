@@ -72,10 +72,10 @@ app.use(function(req, res, next){
   res.locals.adminlogined = req.session.adminlogined;
   res.locals.adminUserInfo = req.session.adminUserInfo;
   //    指定站点域名
-  console.log('req.headers:',req.headers);
-  console.log('req.headers.host:',req.headers.host);
+  // console.log('req.headers:',req.headers);
+  // console.log('req.headers.host:',req.headers.host);
   res.locals.myDomain = req.headers.host;
-  console.log('res.locals:',res.locals);
+  // console.log('res.locals:',res.locals);
   next();
 });
 console.log(222222222222222222222222);*/

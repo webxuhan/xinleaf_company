@@ -83,17 +83,17 @@ router.post('/getAdminInfo',(req,res) => {
 router.post('/signout',(req,res) => {
     req.session.adminUserInfo = '';
     res.json({success:true,error:false,msg:'退出成功'});
-})
+});
 
 //添加员工信息
 router.post('/addStaff',(req,res,next) =>{
 	var errors;
 	const userName = req.body.userName;
 	const phoneNum = req.body.phoneNum;
-	console.log('用户已登录:',req.cookies);
-	console.log('用户登录body:',req.body);
-	console.log('用户已登录sess:',req.session);
-	console.log('当前登录用户:',req.session.adminUserInfo);
+	// console.log('用户已登录:',req.cookies);
+	// console.log('用户登录body:',req.body);
+	// console.log('用户已登录sess:',req.session);
+	// console.log('当前登录用户:',req.session.adminUserInfo);
 	AdminUser.find({userName:userName,phoneNum:phoneNum}).exec((err,user) => {
 		if( user.length > 0 ) {
 			errors = '该员工信息已添加';
@@ -103,7 +103,7 @@ router.post('/addStaff',(req,res,next) =>{
 			console.log('员工信息添加成功');
 		}
 	})
-})
+});
 
 //员工信息列表展示
 router.post('/getStaffList',(req,res,next) => {
@@ -133,13 +133,30 @@ router.post('/getStaffList',(req,res,next) => {
 				console.log('展示信息失败：',err);
 			}
 		})
-})
+});
+
+//编辑员工信息
+router.post('/editStaff',(req,res) =>{
+	const uid = req.body._id;
+	const username = req.body.userName;
+	const phoneNum = req.body.phoneNum;
+	console.log('编辑员工')
+	console.log('uid:',uid);
+	console.log('username:',username);
+	AdminUser.findOne({userName:username,phoneNum:phoneNum,_id:{$ne:uid}}).exec((err,user)=>{
+		if( !err && !user) {
+			DbOpt.updateByID(AdminUser,req,res);
+		} else {
+			res.json({success:false,error:true,msg:'员工信息已存在'})
+		}
+	});
+});
 
 //根据id删除员工信息
 router.post('/delStaffById',(req,res,next) =>{
 	// const _id = req.body._id;
 	DbOpt.del(AdminUser,req,res);
-})
+});
 
 module.exports = router;
 // {
