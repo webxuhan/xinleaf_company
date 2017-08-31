@@ -50,11 +50,11 @@ app.use(session({
     port : settings.redis_port,
     host : settings.redis_host,
     pass : settings.redis_psd,
-    ttl : 1800  //过期时间
+    ttl : 300  //过期时间
   }),
   resave : true,
   saveUninitialized : false,
-  cookie:{maxAge : 1000*60*60}
+  cookie:{maxAge : 1000*10}
 }));
 
 app.use(filter.authUser);
