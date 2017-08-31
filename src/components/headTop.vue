@@ -48,7 +48,7 @@ export default {
 	                        message: '退出成功'
 	                    });
 	                    this.$store.dispatch('signout');
-	                    this.$router.push('adminLogin');
+	                    this.$router.push('/adminLogin');
 					}else{
 						this.$message({
 	                        type: 'error',
@@ -67,7 +67,7 @@ export default {
 	                    type: 'error',
 	                    message: 'session失效，请重新登录'
 	                });
-					this.$router.push('adminLogin')
+					this.$router.push('/adminLogin')
 				}
 			},
 			deep: true
