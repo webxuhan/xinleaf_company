@@ -19,6 +19,7 @@ const settings = require('../models/db/settings');
 const crypto = require('crypto');
 //数据库操作对象
 const DbOpt = require('../models/Dbopt');
+const adminFunc = require('../models/db/adminFunc');
 
 //后台用户登录
 router.post('/login',(req,res,next) =>{
@@ -113,31 +114,42 @@ router.get('/getStaffList',(req,res,next) => {
 	const currentPage = req.query.currentPage || 1;
 	const pageSize = req.query.pageSize || 11;
 	console.log(currentPage,pageSize);
-	AdminUser.aggregate([
-		{
-			$match : {role :{$ne: 0}}
-		},
-		{
-		    $project: {
-		        'register_time': {
-		            // 将register_time字段加上8*60*60*1000毫秒后,再格式化时间
-		            $dateToString: {format: "%Y-%m-%d %H:%M:%S", date: {$add:['$register_time',28800000] } }
-		        },
-		        '_id': '$_id',
-		        'userName': '$userName',
-		        'phoneNum': '$phoneNum',
-		        'email': '$email',
-		        'role' : '$role'
-		    }
-		}
-	]).exec((err,user) =>{
-			if( !err ) {
-				// console.log(user);
-				res.json({success:true,error:false,data:[user]})
-			} else {
-				console.log('展示信息失败：',err);
-			}
-		})
+	// console.log('queryParams:',queryParams);
+	adminFunc.pageQuery(currentPage,pageSize,AdminUser,'',{},{
+		register_time: 'desc'
+	},(err,$page) =>{
+		console.log("err:",err);
+		console.log('$page:',$page);
+	})
+
+
+
+
+	// AdminUser.aggregate([
+	// 	{
+	// 		$match : {role :{$ne: 0}}
+	// 	},
+	// 	{
+	// 	    $project: {
+	// 	        'register_time': {
+	// 	            // 将register_time字段加上8*60*60*1000毫秒后,再格式化时间
+	// 	            $dateToString: {format: "%Y-%m-%d %H:%M:%S", date: {$add:['$register_time',28800000] } }
+	// 	        },
+	// 	        '_id': '$_id',
+	// 	        'userName': '$userName',
+	// 	        'phoneNum': '$phoneNum',
+	// 	        'email': '$email',
+	// 	        'role' : '$role'
+	// 	    }
+	// 	}
+	// ]).exec((err,user) =>{
+	// 		if( !err ) {
+	// 			// console.log(user);
+	// 			res.json({success:true,error:false,data:[user]})
+	// 		} else {
+	// 			console.log('展示信息失败：',err);
+	// 		}
+	// 	})
 });
 
 //编辑员工信息
