@@ -46,6 +46,7 @@
     "http-proxy-middleware": "^0.17.3",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
+    "moment": "^2.18.1",
     "mongoose": "^4.11.6",
     "morgan": "^1.8.2",
     "opn": "^5.1.0",

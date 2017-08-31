@@ -109,17 +109,20 @@ router.post('/addStaff',(req,res,next) =>{
 });
 
 //员工信息列表展示
-router.get('/getStaffList',(req,res,next) => {
-	console.log('员工列表页面=>',req.session);
-	const currentPage = req.query.currentPage || 1;
-	const pageSize = req.query.pageSize || 11;
+router.post('/getStaffList',(req,res,next) => {
+	const currentPage = req.body.currentPage || 1;
+	const pageSize = req.body.pageSize || 11;
 	console.log(currentPage,pageSize);
-	// console.log('queryParams:',queryParams);
 	adminFunc.pageQuery(currentPage,pageSize,AdminUser,'',{},{
-		register_time: 'desc'
-	},(err,$page) =>{
-		console.log("err:",err);
-		console.log('$page:',$page);
+		register_time: 'asc'
+	},(error,$page) =>{
+		if(error){
+			res.json(error);
+		}else{
+			const data = $page;
+			console.log('data===>',data);
+			res.json({success:true,error:false,data:data})
+		}
 	})
 
 
@@ -157,9 +160,9 @@ router.post('/editStaff',(req,res) =>{
 	const uid = req.body._id;
 	const username = req.body.userName;
 	const phoneNum = req.body.phoneNum;
-	console.log('编辑员工')
-	console.log('uid:',uid);
-	console.log('username:',username);
+	// console.log('编辑员工')
+	// console.log('uid:',uid);
+	// console.log('username:',username);
 	AdminUser.findOne({userName:username,phoneNum:phoneNum,_id:{$ne:uid}}).exec((err,user)=>{
 		if( !err && !user) {
 			DbOpt.updateByID(AdminUser,req,res);
