@@ -15,7 +15,7 @@
 			        <el-tag :type="scope.row.role === '1' ? 'primary' : 'success'" close-transition>{{scope.row.role == 1?'管理人员':'普通人员'}}</el-tag>
 		  		 </template>
 		   		</el-table-column>
-		   		<el-table-column label="操作">
+		   		<el-table-column label="操作" v-if='this.adminInfo.role==0'>
 			      <template scope="scope">
 			        <el-button
 			          size="small"
@@ -63,6 +63,7 @@
 </template>
 <script>
 	import headTop from '../../components/headTop';
+	import {mapActions, mapState} from 'vuex'
 	export default{
 		data() {
 			return {
@@ -96,6 +97,9 @@
 				}
 			}
 		},
+		computed:{
+			...mapState(['adminInfo'])
+		},
 		mounted(){
 			this.initData();
 		},
@@ -103,24 +107,24 @@
 			async initData(){
 				this.$http.post('http://localhost:1225/admin/getStaffList',{currentPage:this.currentPage,pageSize:this.pageSize}).then((res) =>{
 					const data = res.data.data;
-					console.log('res:',res);
-					console.log('res.data:',res.data.data.results);
+					// console.log('res:',res);
+					// console.log('res.data:',res.data.data.results);
 					this.tableData = data.results;
 					this.totalNum = data.count;
 				});
 			},
 			handleSizeChange(val) {
-				console.log(`每页 ${val} 条`);
+				// console.log(`每页 ${val} 条`);
 			},
 			handleCurrentChange(val) {
-				console.log(`当前页: ${val}`);
+				// console.log(`当前页: ${val}`);
 				this.initData();
 			},
 			formatter(row, column) {
 			return row.address;
 			},
 			filterTag(value, row) {
-			console.log(row.role === value)
+			// console.log(row.role === value)
 			return row.role == value;
 			},
 			handleEdit(index, row) {  //编辑操作
@@ -129,18 +133,18 @@
 			// this.editForm = row;
 			this.editForm = JSON.parse(JSON.stringify(row));
 			this.editForm.role = this.editForm.role.toString();
-			console.log(typeof this.editForm.role);
-			console.log(this.editForm);
+			// console.log(typeof this.editForm.role);
+			// console.log(this.editForm);
 			},
 			handleDelete(index, row) { 	//删除操作
-				console.log("预定删除id：",row._id);
+				// console.log("预定删除id：",row._id);
 				 this.$confirm('此操作将永久删除该员工信息, 是否继续?', '提示', {
 		          confirmButtonText: '确定',
 		          cancelButtonText: '取消',
 		          type: 'warning'
 		        }).then(() => {
 	        	    this.$http.post('http://localhost:1225/admin/delStaffById',{_id:row._id}).then((res) =>{
-	        	    	console.log(res,res.success);
+	        	    	// console.log(res,res.success);
 						if( res.data.success ) {
 							this.$message({
 								type: 'success',
@@ -154,7 +158,7 @@
 						}
 					});
 		        }).catch(() => {
-	        	  console.log('取消删除');
+	        	  // console.log('取消删除');
 		          this.$message({
 		            type: 'info',
 		            message: '已取消删除'
@@ -164,18 +168,18 @@
 			editStaff(editForm) {
 				this.$refs[editForm].validate((valid) =>{
 					if(valid){
-						console.log('test:',this.editForm);
+						// console.log('test:',this.editForm);
 						this.$http.post('http://localhost:1225/admin/editStaff',this.editForm).then((res) => {
-							console.log('res.data:',res.data);
+							// console.log('res.data:',res.data);
 							if(res.data.success){
-								console.log('修改成功');
+								// console.log('修改成功');
 								this.$message({
 						            type: 'info',
 						            message: res.data.msg
 					            }); 
 								this.dialogFormVisible = false;
 							}else{
-								console.log(res.data.msg);
+								// console.log(res.data.msg);
 								this.$message({
 						            type: 'error',
 						            message: res.data.msg
