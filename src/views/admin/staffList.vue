@@ -101,12 +101,9 @@
 		},
 		methods: {
 			async initData(){
-				this.$http.post('http://localhost:1225/admin/getStaffList',{currentPage:this.currentPage,pageSize:this.pageSize}).then((res) =>{
-					const data = res.data.data;
-					console.log('res:',res);
-					console.log('res.data:',res.data.data.results);
-					this.tableData = data.results;
-					this.totalNum = data.count;
+				this.$http.get('http://localhost:1225/admin/getStaffList',{currentPage:this.currentPage,pageSize:this.pageSize}).then((res) =>{
+					console.log('res.data:',res.data);
+					this.tableData = res.data.data[0];
 				});
 			},
 			handleSizeChange(val) {
@@ -114,7 +111,6 @@
 			},
 			handleCurrentChange(val) {
 				console.log(`当前页: ${val}`);
-				this.initData();
 			},
 			formatter(row, column) {
 			return row.address;
