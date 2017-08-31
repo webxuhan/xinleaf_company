@@ -51,8 +51,8 @@ export default new Router({
     },
     {
       path: '/adminLogin',
-      component: adminLogin,
-      meta: []
+      name: 'adminLogin',
+      component: adminLogin
     },
     {
       path: '/manage',
