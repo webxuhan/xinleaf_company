@@ -29,6 +29,13 @@
 			  <!--   </span> -->
 			</el-table>
 		</el-row>
+		<!-- 列表分页 -->
+		<el-row >
+			<el-col :span='12' :offset='12'>
+				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalNum">
+				</el-pagination>
+			</el-col>
+		</el-row>
 		<!-- 员工编辑弹出层 -->
 		<el-dialog title="员工信息编辑" :visible.sync="dialogFormVisible">
 		  <el-form :model="editForm" :rules="rules" ref="editForm" class="demo-ruleForm">
@@ -66,6 +73,9 @@
 					email:'',
 					role:''
 				}],
+				currentPage: 1, //当前页
+				pageSize:11, //当前每页数据条数
+				totalNum: 0, 	//当前数据总条数
 		        dialogFormVisible: false,
 		        dialogVisible: false,
 		        editForm: {
@@ -91,9 +101,16 @@
 		},
 		methods: {
 			async initData(){
-				this.$http.post('http://localhost:1225/admin/getStaffList').then((res) =>{
+				this.$http.get('http://localhost:1225/admin/getStaffList',{currentPage:this.currentPage,pageSize:this.pageSize}).then((res) =>{
+					console.log('res.data:',res.data);
 					this.tableData = res.data.data[0];
 				});
+			},
+			handleSizeChange(val) {
+				console.log(`每页 ${val} 条`);
+			},
+			handleCurrentChange(val) {
+				console.log(`当前页: ${val}`);
 			},
 			formatter(row, column) {
 			return row.address;

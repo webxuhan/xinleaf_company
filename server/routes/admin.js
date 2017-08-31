@@ -49,8 +49,14 @@ router.post('/login',(req,res,next) =>{
 
 // 获取用户信息
 router.post('/getAdminInfo',(req,res) => {
-	//const username = req.session.adminUserInfo.userName;
-	console.log(req.session);
+	console.log('获取用户信息jie:',req.session);
+	console.log('获取用户信息:',req.session.adminUserInfo);
+	const username = req.session.adminUserInfo;
+	if(username){
+		console.log(1)
+	}else{
+		console.log(2)
+	}
 		/*if (!admin_id || !Number(admin_id)) {
 			console.log('获取管理员信息的session失效');
 			res.send({
@@ -109,8 +115,11 @@ router.post('/addStaff',(req,res,next) =>{
 });
 
 //员工信息列表展示
-router.post('/getStaffList',(req,res,next) => {
+router.get('/getStaffList',(req,res,next) => {
 	console.log('员工列表页面=>',req.session);
+	const currentPage = req.query.currentPage || 1;
+	const pageSize = req.query.pageSize || 11;
+	console.log(currentPage,pageSize);
 	AdminUser.aggregate([
 		{
 			$match : {role :{$ne: 0}}
