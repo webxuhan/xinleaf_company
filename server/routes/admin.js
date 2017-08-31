@@ -45,38 +45,40 @@ router.post('/login',(req,res,next) =>{
 });
 
 // 获取用户信息
-router.post('/getAdminInfo',(req,res) => {
-	const userName = req.session.adminUserInfo.userName;
-		if (!userName) {
-			console.log('获取管理员信息的session失效');
-			res.send({
-				status: 0,
-				type: 'ERROR_SESSION',
-				message: '获取管理员信息失败'
-			})
-			return 
-		}
-		try{
-			const info = AdminUser.findOne({'userName':userName}).exec((err,user)=>{
-				if (!info) {
-					throw new Error('未找到当前管理员')
-				}else{
-					res.send({
-						status: 1,
-						data: info
-					})
-				}
-			})
+router.get('/getAdminInfo',(req,res) => {
+	const userInfo = req.session.adminUserInfo;
+	if(!userInfo){
+		console.log('获取管理员信息的session失效');
+		res.send({
+			status: 0,
+			type: 'ERROR_SESSION',
+			message: '获取管理员信息失败'
+		})
+		return 
+	}
 
-			
-		}catch(err){
-			console.log('获取管理员信息失败');
-			res.send({
-				status: 0,
-				type: 'GET_ADMIN_INFO_FAILED',
-				message: '获取管理员信息失败'
-			})
-		}
+	try{
+		const userName = userInfo.userName;
+		const info = AdminUser.findOne({'userName':userName}).exec((err,user)=>{
+			if (!info) {
+				throw new Error('未找到当前管理员')
+			}else{
+				res.send({
+					status: 1,
+					data: info
+				})
+			}
+		})
+
+		
+	}catch(err){
+		console.log('获取管理员信息失败');
+		res.send({
+			status: 0,
+			type: 'GET_ADMIN_INFO_FAILED',
+			message: '获取管理员信息失败'
+		})
+	}
 });
 
 //后台用户退出

@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 const state = {
 	userInfo: {},
-	adminInfo: ''
+	adminInfo: {}
 }
 
 const mutations = {
@@ -20,7 +20,7 @@ const mutations = {
 		state.adminInfo = adminInfo;
 	},
 	signout(state){
-		state.adminInfo = '';
+		state.adminInfo = {};
 	}
 }
 
@@ -33,10 +33,12 @@ const actions = {
 	},*/
 	getAdminData({commit}){
 		try{
-			axios.post('http://localhost:1225/admin/getAdminInfo')
+			axios.get('http://localhost:1225/admin/getAdminInfo')
 			    .then(function(res){
 			        if(res.data.status == 1){
 			        	commit('saveAdminInfo',res.data.data);
+			        }else if(res.data.status == 0){
+			        	commit('signout');
 			        }
 			    })
 		}catch(err){

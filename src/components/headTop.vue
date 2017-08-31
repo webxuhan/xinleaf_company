@@ -24,11 +24,11 @@ export default {
 			
 		}
 	},
-	mounted() {
-		if(!this.adminInfo){
+	created() {
+		if(!this.adminInfo.userName){
 			this.getAdminData()
 		};
-		// console.log('1=>',this.adminInfo);
+		//console.log('adminInfo=>',this.adminInfo);
 	},
 	computed: {
 		...mapState(['adminInfo'])
@@ -48,7 +48,7 @@ export default {
 	                        message: '退出成功'
 	                    });
 	                    this.$store.dispatch('signout');
-	                    this.$router.push('/adminLogin');
+	                    this.$router.push('adminLogin');
 					}else{
 						this.$message({
 	                        type: 'error',
@@ -60,14 +60,17 @@ export default {
 		}
 	},
 	watch: {
-		adminInfo: function (newValue){
-			if (!newValue.userName) {
-				this.$message({
-                    type: 'error',
-                    message: 'session失效，请重新登录'
-                });
-				this.$router.push('adminLogin')
-			}
+		adminInfo: {
+			handler: function (newValue){
+				if (!newValue.userName) {
+					this.$message({
+	                    type: 'error',
+	                    message: 'session失效，请重新登录'
+	                });
+					this.$router.push('adminLogin')
+				}
+			},
+			deep: true
 		}
 	}
 }
