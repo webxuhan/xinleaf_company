@@ -94,6 +94,7 @@ router.post('/addStaff',(req,res,next) =>{
 	var errors;
 	const userName = req.body.userName;
 	const phoneNum = req.body.phoneNum;
+	console.log('AdminUser==>',AdminUser);
 	// console.log('用户已登录:',req.cookies);
 	// console.log('用户登录body:',req.body);
 	// console.log('用户已登录sess:',req.session);
@@ -182,10 +183,12 @@ router.get('/getParentId',(req,res) =>{
 
 //添加分类列表--添加分类信息
 router.post('/addCategory',(req,res) => {
+	console.log('Category==>',Category);
 	console.log('添加分类信息:',req.body);
 	const sort_order = req.body.sort_order || "0";
 	const category_name = req.body.category_name;
 	Category.findOne({category_name:category_name}).exec((err,data) =>{
+		console.log('err +==>',err);
 		if( data ) {
 			res.json({success:false,error:true,msg:'该分类信息已存在'});
 		}else{

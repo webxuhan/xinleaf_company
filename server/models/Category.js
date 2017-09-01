@@ -10,7 +10,7 @@ const CategorySchema = new Schema({
 	_id : {
 		type : String,
 		unique : true,
-		'defualt' : shortid.genrate
+		'default' : shortid.generate
 	},
 	category_name : String,		//商品分类名称
 	parent_id : { type : String, default : '0' }, 	//父id,默认为0，0为最高级

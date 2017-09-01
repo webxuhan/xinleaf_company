@@ -106,7 +106,7 @@ const DbOpt = {
 				console.log(01);
 				console.log(err);
 			} else {
-				res.json({success:true,error:false,msg:'注册成功'});
+				res.json({success:true,error:false,msg:'信息添加成功'});
 				console.log(02);
 			}
 		});
