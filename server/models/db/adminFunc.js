@@ -45,7 +45,7 @@ const adminFunc = {
         });
     }
 };
-
+    
 module.exports = adminFunc;
 
 

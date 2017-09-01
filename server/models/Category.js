@@ -15,12 +15,21 @@ const CategorySchema = new Schema({
 	category_name : String,		//商品分类名称
 	parent_id : { type : String, default : '0' }, 	//父id,默认为0，0为最高级
 	is_show : { type : Boolean, default : false }, 	//是否显示,默认不显示
-	sort_order : { type: String, default: "0" } 	//分类排序,默认为0,0为升序，1为降序
+	sort_order : { type: String, default: "0" } 	//分类优先级，0为优先级最高
 	
 });
 
 const Category = mongoose.model("Category",CategorySchema);
 
 module.exports = Category;
+
+
+
+
+
+
+
+
+
 
 

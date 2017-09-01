@@ -9,6 +9,7 @@ const url = require('url');
 
 //管理员对象
 const AdminUser = require('../models/AdminUser');
+const Category = require('../models/Category');
 //数据校验
 const validator = require('validator');
 //短id
@@ -124,10 +125,6 @@ router.post('/getStaffList',(req,res,next) => {
 			res.json({success:true,error:false,data:data})
 		}
 	})
-
-
-
-
 	// AdminUser.aggregate([
 	// 	{
 	// 		$match : {role :{$ne: 0}}
@@ -177,6 +174,26 @@ router.post('/delStaffById',(req,res,next) =>{
 	// const _id = req.body._id;
 	DbOpt.del(AdminUser,req,res);
 });
+
+//添加分类列表--获取分类信息
+router.get('/getParentId',(req,res) =>{
+	// Category
+});
+
+//添加分类列表--添加分类信息
+router.post('/addCategory',(req,res) => {
+	console.log('添加分类信息:',req.body);
+	const sort_order = req.body.sort_order || "0";
+	const category_name = req.body.category_name;
+	Category.findOne({category_name:category_name}).exec((err,data) =>{
+		if( data ) {
+			res.json({success:false,error:true,msg:'该分类信息已存在'});
+		}else{
+			DbOpt.addOne(Category,req,res);
+			
+		}
+	})
+})
 
 module.exports = router;
 // {

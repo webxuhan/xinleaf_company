@@ -96,12 +96,15 @@ const DbOpt = {
 		}
 	},
 	addOne : function( obj,req,res ) {  //单个添加
+		console.log('obj:',obj);
+		console.log('req.body==>',req.body);
 		const newObj = new obj(req.body);
-		console.log(newObj);
+		console.log('newObj==>',newObj);
 		newObj.save(function( err ) {
 			if( err ) {
 				res.json({success:false,error:true,msg:err});
 				console.log(01);
+				console.log(err);
 			} else {
 				res.json({success:true,error:false,msg:'注册成功'});
 				console.log(02);

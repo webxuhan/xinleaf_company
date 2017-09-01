@@ -13,7 +13,7 @@
 				  <el-form-item label="员工邮箱：" prop="email">
 				    <el-input v-model="staffForm.email" placeholder="请输入员工邮箱"></el-input>
 				  </el-form-item>
-				  <el-form-item label="员工角色：">
+				  <el-form-item label="员工角色：" prop="role">
 				    <el-radio-group v-model="staffForm.role">
 				      <el-radio label="1">管理人员</el-radio>
 				      <el-radio label="2">普通人员</el-radio>
