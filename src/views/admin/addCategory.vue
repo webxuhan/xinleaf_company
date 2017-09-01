@@ -52,21 +52,43 @@
 	    },
 		methods: {
 	     	initParentId(){
+	     		this.options=[{parent_id: '0',label: '无'}];
 	     		this.$http.get('http://localhost:1225/admin/getParentId').then((res) =>{
-	     			console.log(res.data);
+	     			const data = res.data[0];
+	     			data.forEach((item,index) =>{
+	     				let label,parent_id;
+	     				this.options.push({label:item.category_name,parent_id:item._id});
+	     			});
 	     		})
 	     	},
 	     	addCategory(formName){
 	     		this.$refs[formName].validate((valid) => {
 	     			this.$http.post('http://localhost:1225/admin/addCategory',this.categoryForm).then((res) => {
-	     				console.log(res.data)
+	     				if( res.data.success) {
+	     					this.$message({
+								type: 'success',
+								message: '分类信息添加成功'
+							});
+							this.categoryForm = {
+					      		category_name:'',
+						        parent_id:'0',
+					      		is_show:'1',
+					      		sort_order:'0'
+					      	};
+					      	this.initParentId();
+	     				}else{
+	     					this.$message({
+								type: 'error',
+								message: '分类信息添加失败'
+							});
+	     				}
 	     			})
 	     		})
 	     	}
 	    },
-	    // mounted:{
-
-	    // },
+	    mounted() {
+	    	this.initParentId();
+	    },
 		components:{
 			headTop
 		}
@@ -78,3 +100,13 @@
 	padding:10px 0;
 }
 </style>
+
+data:{
+	{
+		category_name:"一级分类a"
+  		_id:"SJ2_5d8t-"
+	},{
+		category_name:"一级分类a"
+  		_id:"SJ2_5d8t-"
+	}
+}

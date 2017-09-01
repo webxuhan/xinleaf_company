@@ -178,7 +178,10 @@ router.post('/delStaffById',(req,res,next) =>{
 
 //添加分类列表--获取分类信息
 router.get('/getParentId',(req,res) =>{
-	// Category
+	Category.find({parent_id:'0'}).select('_id, category_name').exec((err,result) => {
+		console.log('err:',err);
+		res.send([result]);
+	})
 });
 
 //添加分类列表--添加分类信息
@@ -189,11 +192,13 @@ router.post('/addCategory',(req,res) => {
 	const category_name = req.body.category_name;
 	Category.findOne({category_name:category_name}).exec((err,data) =>{
 		console.log('err +==>',err);
+		if(err){
+			res.json({success:false,error:true,msg:err});
+		}
 		if( data ) {
 			res.json({success:false,error:true,msg:'该分类信息已存在'});
 		}else{
 			DbOpt.addOne(Category,req,res);
-			
 		}
 	})
 })
