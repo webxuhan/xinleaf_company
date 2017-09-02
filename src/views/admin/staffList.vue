@@ -62,8 +62,9 @@
 	</div>
 </template>
 <script>
-	import headTop from '../../components/headTop';
+	import headTop from '../../components/headTop'
 	import {mapActions, mapState} from 'vuex'
+	import {StaffList,delStaff,editStaff} from '@/api/getData'
 	export default{
 		data() {
 			return {
@@ -105,13 +106,12 @@
 		},
 		methods: {
 			async initData(){
-				this.$http.post('http://localhost:1225/admin/getStaffList',{currentPage:this.currentPage,pageSize:this.pageSize}).then((res) =>{
-					const data = res.data.data;
-					// console.log('res:',res);
-					// console.log('res.data:',res.data.data.results);
+				const res = await StaffList({currentPage:this.currentPage,pageSize:this.pageSize});
+				if(res.success){
+					const data = res.data;
 					this.tableData = data.results;
 					this.totalNum = data.count;
-				});
+				}
 			},
 			handleSizeChange(val) {
 				// console.log(`每页 ${val} 条`);
@@ -143,20 +143,20 @@
 		          cancelButtonText: '取消',
 		          type: 'warning'
 		        }).then(() => {
-	        	    this.$http.post('http://localhost:1225/admin/delStaffById',{_id:row._id}).then((res) =>{
-	        	    	// console.log(res,res.success);
-						if( res.data.success ) {
-							this.$message({
+		        	delStaff({_id:row._id}).then((res) =>{
+		        		console.log(res);
+		        		if(res.success){
+			        		this.$message({
 								type: 'success',
 								message: '删除成功!'
 							});
-						} else {
-							this.$message({
+			        	}else{
+			        		this.$message({
 								type: 'error',
 								message: '删除失败!'
 							});
-						}
-					});
+			        	}
+		        	});
 		        }).catch(() => {
 	        	  // console.log('取消删除');
 		          this.$message({
@@ -168,24 +168,21 @@
 			editStaff(editForm) {
 				this.$refs[editForm].validate((valid) =>{
 					if(valid){
-						// console.log('test:',this.editForm);
-						this.$http.post('http://localhost:1225/admin/editStaff',this.editForm).then((res) => {
-							// console.log('res.data:',res.data);
-							if(res.data.success){
-								// console.log('修改成功');
+						editStaff(this.editForm).then((res) => {
+							if(res.success){
 								this.$message({
 						            type: 'info',
-						            message: res.data.msg
+						            message: res.msg
 					            }); 
 								this.dialogFormVisible = false;
 							}else{
-								// console.log(res.data.msg);
 								this.$message({
 						            type: 'error',
-						            message: res.data.msg
+						            message: res.msg
 					            }); 
 							}
-						})
+						});
+						
 					}else{
 			  			return false;
 			  		}

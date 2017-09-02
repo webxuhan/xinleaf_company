@@ -35,6 +35,7 @@
 </template>
 <script>
 	import headTop from '../../components/headTop';
+	import {addStaff} from '@/api/getData'
 	export default{
 		data(){
 			// var validatePass = (rule, value, callback) => {
@@ -86,8 +87,8 @@
 			addStaff(formName){
 				this.$refs[formName].validate((valid) => {
 					if(valid){
-						this.$http.post('http://localhost:1225/admin/addStaff',this.staffForm).then((res) => {
-							if( res.data.success ) {
+						addStaff(this.staffForm).then((res) => {
+							if( res.success ) {
 								this.$message({
 									type: 'success',
 									message: '员工信息添加成功'
@@ -103,10 +104,10 @@
 							} else {
 								this.$message({
 				    			type: 'error',
-				    			message: res.data.msg
+				    			message: res.msg
 			    				});
 							}
-						});	
+						})
 					} else {
 						this.$notify.error({
 			  				title: '错误',
