@@ -6,6 +6,8 @@ const express = require('express');
 const router = express.Router();
 router.caseSensitive = true;
 const url = require('url');
+//文件上传类
+const fs = require('fs');
 
 //管理员对象
 const AdminUser = require('../models/AdminUser');
@@ -201,7 +203,21 @@ router.post('/addCategory',(req,res) => {
 			DbOpt.addOne(Category,req,res);
 		}
 	})
+});
+
+
+//商品图片上传
+router.post('/goodPicture_upload',(req,res) =>{
+	// const params = url.parse(req.url,true);
+	// const fileType = params.query.type;
+ //    const fileKey = params.query.key;
+    // console.log('params===>',params);
+    // console.log('test:',req.file);
+	// console.log('图片上传:',req.file);
+
+	// console.log('req====>',req);
 })
+
 
 module.exports = router;
 // {

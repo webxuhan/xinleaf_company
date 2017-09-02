@@ -6,6 +6,7 @@ const RedisStore = require('connect-redis')(session);
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const multer = require('multer');
 const cors = require('cors'); 	//引入cors包
 // const io = require('socket.io')();
 // const ejs = require('ejs');
@@ -38,6 +39,7 @@ app.use(cors({
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(multer({ dest: '/public/upload/'}).array('file'));
 app.use(cookieParser(settings.session_secret));
 app.use(express.static(path.join(__dirname, 'public')));
 //解决异步层次混乱问题

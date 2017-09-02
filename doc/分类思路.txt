@@ -1,0 +1,147 @@
+[{
+	_id:'0001',
+	category_name: 中国,
+	parent_id:"0",
+	is_show:true,
+	sort_order:
+},{
+
+}
+	
+
+]
+江苏 [0,0001]
+	盐城[0001,0003]
+		射阳
+		滨海
+		建湖
+	苏州
+		常熟
+		吴江
+		吴中
+	南京
+湖南[0,0002]
+	长沙
+	常德
+	张家界
+
+select * from category where pid = 0;
+江苏
+湖南
+foreach(江苏，湖南){
+	select * from category where pid=0001;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+分类名称: 江苏
+上级分类: 
+	无
+
+优先级:0
+是否显示:1
+----------------
+id:1,
+name:江苏,
+pid:0,
+path:0,
+order:0,
+isshow:1
+----------------
+
+
+
+分类名称: 盐城
+上级分类: 
+	无 (0)
+	江苏(id:detergewtr)
+
+优先级:1
+是否显示:1
+
+id:1,
+name:江苏,
+pid:0,
+path:0,
+order:0,
+isshow:1
+-------------
+id:2,
+name:盐城,
+pid:1,
+path:0,1
+order:1,
+isshow:1
+
+分类名称: 湖南
+上级分类: 
+	无(id:0)
+	江苏(id:1)
+		盐城(id:2)
+
+
+优先级:1
+是否显示:1
+
+_id:dddadfd,
+name:江苏,
+pid:0,
+order:0,
+isshow:1
+-------------
+_id:331321,
+name:盐城,
+pid:dddadfd,
+order:1,
+isshow:1
+
+-------------
+id:3,
+name:湖南,
+pid:0,
+path:0,
+order:1,
+isshow:1
+
+
+分类名称: 射阳
+上级分类: 
+	无
+	江苏(id:1)
+		盐城(id:2)
+	湖南(id:3)
+
+优先级:1
+是否显示:1
+
+
+id:4
+pid:2
+path:0,1,2
+-----------------------------------------------------------------
+
+
+name:江苏
+level:1
+childred:{
+	name:盐城
+	level:2
+	children:{
+		射阳
+	}
+}，
+
+

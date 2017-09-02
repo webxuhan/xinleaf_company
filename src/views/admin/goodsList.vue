@@ -2,7 +2,7 @@
 	<div>
 		<head-top></head-top>
 		<el-upload
-		  action=""
+		  action="http://localhost:1225/admin/goodPicture_upload"
 		  list-type="picture-card"
 		  :on-preview="handlePictureCardPreview"
 		  :on-remove="handleRemove">
@@ -27,7 +27,7 @@
 	        console.log(file, fileList);
 	      },
 	      handlePictureCardPreview(file) {
-	      	console.log(file)
+	      	console.log('false:',file)
 	        this.dialogImageUrl = file.url;
 	        this.dialogVisible = true;
 	      }
