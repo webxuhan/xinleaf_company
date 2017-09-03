@@ -39,7 +39,7 @@ app.use(cors({
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer({ dest: '/public/upload/'}).array('file'));
+app.use(multer({ dest: './public/upload/'}).array('file'));
 app.use(cookieParser(settings.session_secret));
 app.use(express.static(path.join(__dirname, 'public')));
 //解决异步层次混乱问题
