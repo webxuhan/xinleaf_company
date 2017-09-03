@@ -242,11 +242,7 @@ router.post('/editCategory',(req,res) =>{
 //商品图片上传
 // ,upload.single("file")
 router.post('/goodPicture_upload',(req,res) =>{
-	console.log(req.files);
-	// const params = url.parse(req.url,true);
-	// const fileType = params.query.type;
- //    const fileKey = params.query.key;
-    // console.log('params===>',params);
+	// console.log(req.files);
     console.log('files:',req.files);
     console.log('file:',req.file);
 	// console.log('图片上传:',req.file);
