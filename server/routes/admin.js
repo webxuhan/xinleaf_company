@@ -193,7 +193,7 @@ router.post('/delStaffById',(req,res,next) =>{
 
 //添加分类列表--获取分类信息
 router.get('/getParentId',(req,res) =>{
-	Category.find({parent_id:'0'}).select('_id, category_name').exec((err,result) => {
+	Category.find({parent_id:'0'}).select('_id category_name is_show sort_order').exec((err,result) => {
 		console.log('err:',err);
 		res.send([result]);
 	})
@@ -201,8 +201,8 @@ router.get('/getParentId',(req,res) =>{
 
 //添加分类列表--添加分类信息
 router.post('/addCategory',(req,res) => {
-	console.log('Category==>',Category);
-	console.log('添加分类信息:',req.body);
+	/*console.log('Category==>',Category);
+	console.log('添加分类信息:',req.body);*/
 	const sort_order = req.body.sort_order || "0";
 	const category_name = req.body.category_name;
 	Category.findOne({category_name:category_name}).exec((err,data) =>{
@@ -218,10 +218,31 @@ router.post('/addCategory',(req,res) => {
 	})
 });
 
+//根据id删除一级分类
+router.post('/delParentId',(req,res,next) =>{
+	/*const _id = req.body.id;
+	console.log(_id);*/
+	DbOpt.del(Category,req,res);
+});
+
+//编辑分类信息
+router.post('/editCategory',(req,res) =>{
+	const _id = req.body._id;
+	const category_name = req.body.category_name;
+	AdminUser.findOne({category_name:category_name,_id:{$ne:_id}}).exec((err,user)=>{
+		if( !err && !user) {
+			DbOpt.updateByID(Category,req,res);
+		} else {
+			res.json({success:false,error:true,msg:'员工信息已存在'})
+		}
+	});
+});
+
 
 //商品图片上传
 // ,upload.single("file")
 router.post('/goodPicture_upload',(req,res) =>{
+	console.log(req.files);
 	// const params = url.parse(req.url,true);
 	// const fileType = params.query.type;
  //    const fileKey = params.query.key;

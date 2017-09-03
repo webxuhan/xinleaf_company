@@ -35,3 +35,24 @@ export const editStaff = data => fetch('/admin/editStaff', data, 'POST');
 export const addStaff = data => fetch('/admin/addStaff', data, 'POST');
 
 
+/**
+ * 获取一级分类信息
+ */
+export const getParentId = data => fetch('/admin/getParentId');
+
+/**
+ * 添加分类
+ */
+export const addCategory = data => fetch('/admin/addCategory', data, 'POST');
+
+/**
+ * 删除一级分类
+ */
+export const delParentId = data => fetch('/admin/delParentId/', data, 'POST');
+
+/**
+ * 编辑分类信息
+ */
+export const editCategory = data => fetch('/admin/editCategory', data, 'POST');
+
+

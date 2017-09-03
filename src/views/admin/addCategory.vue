@@ -17,8 +17,8 @@
 				  	<el-input v-model="categoryForm.sort_order" placeholder="请输入优先级（0为最高，默认为0）"></el-input>
 				  </el-form-item>
 			      <el-form-item label="是否显示：" prop="is_show">
-				  	<el-radio class="radio" v-model="categoryForm.is_show" label="0">隐藏</el-radio>
-						<el-radio class="radio" v-model="categoryForm.is_show" label="1">显示</el-radio>
+					<el-radio class="radio" v-model="categoryForm.is_show" label="1">显示</el-radio>
+					<el-radio class="radio" v-model="categoryForm.is_show" label="0">隐藏</el-radio>
 				  </el-form-item>
 				  <el-form-item>
 				    <el-button type="primary" @click="addCategory('categoryForm')">添加</el-button>
@@ -30,6 +30,7 @@
 </template>
 <script>
 	import headTop from '../../components/headTop';
+	import {getParentId,addCategory} from '@/api/getData'
 	export default {
 		data() {
 	      return {
@@ -51,20 +52,20 @@
 	      };
 	    },
 		methods: {
-	     	initParentId(){
+	     	async initParentId(){
 	     		this.options=[{parent_id: '0',label: '无'}];
-	     		this.$http.get('http://localhost:1225/admin/getParentId').then((res) =>{
-	     			const data = res.data[0];
-	     			data.forEach((item,index) =>{
-	     				// let label,parent_id;
-	     				this.options.push({label:item.category_name,parent_id:item._id});
-	     			});
-	     		})
+	     		const res = await getParentId();
+	     		const data = res[0];
+     			data.forEach((item,index) =>{
+     				// let label,parent_id;
+     				this.options.push({label:item.category_name,parent_id:item._id});
+     			});
 	     	},
 	     	addCategory(formName){
 	     		this.$refs[formName].validate((valid) => {
-	     			this.$http.post('http://localhost:1225/admin/addCategory',this.categoryForm).then((res) => {
-	     				if( res.data.success) {
+
+	     			addCategory(this.categoryForm).then((res) => {
+	     				if( res.success) {
 	     					this.$message({
 								type: 'success',
 								message: '分类信息添加成功'
@@ -100,13 +101,3 @@
 	padding:10px 0;
 }
 </style>
-
-data:{
-	{
-		category_name:"一级分类a"
-  		_id:"SJ2_5d8t-"
-	},{
-		category_name:"一级分类a"
-  		_id:"SJ2_5d8t-"
-	}
-}
