@@ -4,6 +4,7 @@
 		<el-upload
 		  action="http://localhost:1225/admin/goodPicture_upload"
 		  list-type="picture-card"
+		  enctype="multipart/form-data"
 		  :on-preview="handlePictureCardPreview"
 		  :on-remove="handleRemove">
 		  <i class="el-icon-plus"></i>

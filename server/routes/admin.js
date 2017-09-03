@@ -8,7 +8,20 @@ router.caseSensitive = true;
 const url = require('url');
 //文件上传类
 const fs = require('fs');
+// const multer = require('multer');
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//   	console.log('adminjs:',__dirname)
+//     cb(null, __dirname+'../public/upload/')
+//   },
+//   filename: function (req, file, cb) {
+//   	cb(null, file.originalname)
+//     // cb(null, file.fieldname + '-' + Date.now())
+//   }
+// })
 
+// var upload = multer({ storage: storage })
+// const upload = multer({ dest: 'uploads/' });
 //管理员对象
 const AdminUser = require('../models/AdminUser');
 const Category = require('../models/Category');
@@ -207,12 +220,14 @@ router.post('/addCategory',(req,res) => {
 
 
 //商品图片上传
+// ,upload.single("file")
 router.post('/goodPicture_upload',(req,res) =>{
 	// const params = url.parse(req.url,true);
 	// const fileType = params.query.type;
  //    const fileKey = params.query.key;
     // console.log('params===>',params);
-    // console.log('test:',req.file);
+    console.log('files:',req.files);
+    console.log('file:',req.file);
 	// console.log('图片上传:',req.file);
 
 	// console.log('req====>',req);

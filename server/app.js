@@ -39,9 +39,11 @@ app.use(cors({
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer({ dest: '/public/upload/'}).array('file'));
+console.log('__dirname',__dirname)
+app.use('/upload',express.static(path.join(__dirname, 'public')));
+app.use(multer({ dest: __dirname+'/public/upload'}).array('file'));
 app.use(cookieParser(settings.session_secret));
-app.use(express.static(path.join(__dirname, 'public')));
+
 //解决异步层次混乱问题
 app.use(require('express-promise')());
 
