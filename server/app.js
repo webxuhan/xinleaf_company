@@ -40,8 +40,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 console.log('__dirname',__dirname)
-app.use('/upload',express.static(path.join(__dirname, 'public')));
-app.use(multer({ dest: './public/upload'}).array('file'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(multer({ dest: 'server/public/upload'}).array('file'));
 app.use(cookieParser(settings.session_secret));
 
 //解决异步层次混乱问题
