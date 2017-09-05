@@ -129,7 +129,7 @@ router.post('/addStaff',(req,res,next) =>{
 router.post('/getStaffList',(req,res,next) => {
 	const currentPage = req.body.currentPage || 1;
 	const pageSize = req.body.pageSize || 11;
-	console.log(currentPage,pageSize);
+	// console.log(currentPage,pageSize);
 	adminFunc.pageQuery(currentPage,pageSize,AdminUser,'',{},{
 		register_time: 'asc'
 	},(error,$page) =>{
@@ -137,7 +137,7 @@ router.post('/getStaffList',(req,res,next) => {
 			res.json(error);
 		}else{
 			const data = $page;
-			console.log('data===>',data);
+			// console.log('data===>',data);
 			res.json({success:true,error:false,data:data})
 		}
 	})
@@ -242,12 +242,10 @@ router.post('/editCategory',(req,res) =>{
 //商品图片上传
 // ,upload.single("file")
 router.post('/goodPicture_upload',(req,res) =>{
-	// console.log(req.files);
+	const path = req.files.path;
     console.log('files:',req.files);
     console.log('file:',req.file);
-	// console.log('图片上传:',req.file);
-
-	// console.log('req====>',req);
+	res.json(path);
 })
 
 

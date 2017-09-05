@@ -67,31 +67,6 @@ const index = require('./routes/index');
 const users = require('./routes/users');
 const admin = require('./routes/admin');
 
-/*console.log(1111111111111111111111111111111111);
-app.use(function(req, res, next){
-  //针对前台会员
-  res.locals.logined = req.session.logined;
-  res.locals.userInfo = req.session.user;
-  //针对管理员
-  res.locals.adminlogined = req.session.adminlogined;
-  res.locals.adminUserInfo = req.session.adminUserInfo;
-  //    指定站点域名
-  // console.log('req.headers:',req.headers);
-  // console.log('req.headers.host:',req.headers.host);
-  res.locals.myDomain = req.headers.host;
-  // console.log('res.locals:',res.locals);
-  next();
-});
-console.log(222222222222222222222222);*/
-// 事件监听
-// app.io = io;
-// io.on('connection',(socket) =>{
-//   console.log('socket:',socket);
-//   socket.emit('news', { hello: 'world' });
-//   socket.on('my other event', function (data) {
-//      console.log(data);
-//   });
-// });
 
 app.use('/', index); 	//前台api接口
 app.use('/users', users);

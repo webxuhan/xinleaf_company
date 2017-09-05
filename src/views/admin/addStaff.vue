@@ -38,25 +38,6 @@
 	import {addStaff} from '@/api/getData'
 	export default{
 		data(){
-			// var validatePass = (rule, value, callback) => {
-			//     if (value === '') {
-			//       callback(new Error('请输入密码'));
-			//     } else {
-			//       if (this.staffForm.repassword !== '') {
-			//         this.$refs.staffForm.validateField('repassword');
-			//       }
-			//       callback();
-			//     }
-			//   };
-			// var validatePass2 = (rule, value, callback) => {
-		 //        if (value === '') {
-		 //          callback(new Error('请再次输入密码'));
-		 //        } else if (value !== this.staffForm.password) {
-		 //          callback(new Error('两次输入密码不一致!'));
-		 //        } else {
-		 //          callback();
-		 //        }
-		 //      };
 			return {
 				staffForm: {
 					userName: '',
